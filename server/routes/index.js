@@ -1,9 +1,10 @@
+
 const express = require('express');
 const router  = express.Router();
 
-/* GET home page */
-router.get('/', (req, res, next) => {
-  res.render('index');
-});
+const apiRoutes = require('./api/index.controller');
+
+router.use('/api', apiRoutes);
 
 module.exports = router;
+
