@@ -12,6 +12,8 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
+const cors = require("cors");
+
     
 
 mongoose.Promise = Promise;
@@ -27,6 +29,23 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 const app = express();
+
+
+
+var whitelist = [
+  'http://localhost:4200',
+];
+var corsOptions = {
+  origin: function(origin, callback){
+      var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+      callback(null, originIsWhitelisted);
+  },
+  credentials: true
+};
+app.use(cors(corsOptions));
+
+
+
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -78,8 +97,12 @@ require('./passport')(app);
 const index = require('./routes/index');
 app.use('/', index);
 
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
+const authRouter = require('./routes/auth');
+app.use('api//auth', authRouter);
       
+app.use(function(req, res) {
+  res.sendfile(__dirname + '/public/index.html');
+});
+
 
 module.exports = app;
