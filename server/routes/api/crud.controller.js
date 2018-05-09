@@ -27,7 +27,7 @@ const simpleCrud = Model => {
       .catch(e => next(e));
   });
 
-  // Retrive DETAIL
+  // EDIT
   router.put("/:id", (req, res, next) => {
     const updates = _.pick(req.body, fields);
 
@@ -36,7 +36,7 @@ const simpleCrud = Model => {
       .catch(e => next(e));
   });
 
-  // Retrive DETAIL
+  // DELETE
   router.delete("/:id", (req, res, next) => {
     Model.findByIdAndRemove(req.params.id)
       .then(() => res.json({ message: `SUCESSFUL DELETE ${req.params.id}` }))

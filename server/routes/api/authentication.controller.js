@@ -1,7 +1,11 @@
 const express = require('express');
 const router  = express.Router();
 const User = require('../../models/User');
+
+const bcryptSalt = 10;
 const bcrypt = require('bcrypt');
+const ensureLoggedIn = require('../../middlewares/ensureLoggedIn')
+const uploadCloud = require("../../config/cloudinary.js");
 
 
 const logInPromise = (user, req) => new Promise((resolve,reject) => {
@@ -13,9 +17,11 @@ const logInPromise = (user, req) => new Promise((resolve,reject) => {
 
 
 /* GET home page */
-router.post('/signup', (req, res, next) => {
-    const {username, password} = req.body;
-  
+router.post('/signup', uploadCloud.single("photo"), (req, res, next) => {
+    const {username, email, password, subjects, birthDate, isTeacher} = req.body;
+    if (req.file){
+        photo = req.file.url
+    }
     if (!username || !password) {
       res.status(400).json({ message: 'Provide username and password' });
       return;
@@ -30,7 +36,12 @@ router.post('/signup', (req, res, next) => {
 
         const theUser = new User({
           username,
-          password: hashPass
+          password: hashPass,
+          email,
+          subjects,
+          photo,
+          birthDate,
+          isTeacher
         });
     
         return theUser.save().then( user => logInPromise(user,req));
@@ -76,6 +87,25 @@ router.get('/logout', (req, res) => {
     }
 });
 
-
-
+// Retrive PERSONAL PROFILE
+router.get("/profile", ensureLoggedIn('/api/login'), (req, res) => {
+  
+    let id = req.user.id;
+    User.findById(id)
+      .populate('subjects')
+      .then(object => res.json(object))
+      .catch(e => next(e));
+  });
+  
+  //CRUD --- edit profile
+router.put("/profile", [uploadCloud.single("photo"), ensureLoggedIn('/api/login')] ,(req, res) => {
+    const salt = bcrypt.genSaltSync(bcryptSalt);
+    let id = req.user.id;
+    const {username, email, password, subjects, photo, birthDate, isTeacher} = req.body;
+    const hashPass = bcrypt.hashSync(password, salt);
+    var editUser = {username, email, hashPass, subjects, photo, birthDate, isTeacher};
+    User.findByIdAndUpdate(id, editUser,{ new: true })
+    .then(object => res.json(object))
+      .catch(e => next(e));
+    });
 module.exports = router;

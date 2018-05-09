@@ -92,11 +92,10 @@ app.use(flash());
 require('./passport')(app);
     
 
-const index = require('./routes/index');
-app.use('/', index);
+const index = require('./routes/api/index.controller');
+app.use('/api', index);
 
-// const kkkkkk = require('./models/kkkkkk');
-// app.use('/api/kkkkkk', require('./routes/crud')(kkkkkk));
+
    
 app.use(function(req, res) {
   res.sendfile(__dirname + '/public/index.html');

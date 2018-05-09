@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 
 
-const BASEURL = 'http://localhost:3000';
+// const BASEURL = 'http://localhost:3000';
 
 @Injectable()
 export class SessionService {
@@ -52,7 +52,7 @@ export class SessionService {
 
   logout() {
     return this.http
-      .post(`${environment.BASEURL}/api/logout`, {}, this.options)
+      .get(`${environment.BASEURL}/api/logout`,  this.options)
       .map(res => res.json())
       .map(() => this.handleUser())
       .catch(this.handleError);

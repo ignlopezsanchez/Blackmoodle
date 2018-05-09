@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {routes} from './routes';
+import { FileSelectDirective } from "ng2-file-upload";
 
 
 import { AppComponent } from './app.component';
@@ -16,7 +17,8 @@ import { HttpModule } from '@angular/http';
   declarations: [
     AppComponent,
     AuthLoginComponent,
-    AuthSignupComponent
+    AuthSignupComponent,
+    FileSelectDirective
 ],
   imports: [
     BrowserModule,

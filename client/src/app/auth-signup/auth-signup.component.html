@@ -12,9 +12,13 @@
     <br>
     <label> Password </label>
     <input type="password" [(ngModel)]="password" name="password"/>
+    <br>
+    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+    <br>
     <div>
       <button (click)="signup()"> Signup </button>
     </div>
+    
   </form>
   <p *ngIf="error" class="error"> {{ error }} </p>
 </div> 

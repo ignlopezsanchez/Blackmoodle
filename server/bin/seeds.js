@@ -202,17 +202,3 @@ User.create(users, (err, usersDocs) => {
     })
   })
 
-
-
-
-
-  // Subject.create(subjects).then(subjectDocs => {
-  //   subjectDocs.forEach((e, i) => {
-  //     User.findByIdAndUpdate(userJuan._id, { $push: { subjects: e._id } })
-  //     User.findByIdAndUpdate(userBea._id, { $push: { subjects: e._id } })
-  //     User.findByIdAndUpdate(userAdmin._id, { $push: { subjects: e._id } })
-  //     User.findByIdAndUpdate(userNacho._id, { $push: { subjects: e._id } })
-
-  //     .then(() => mongoose.connection.close())
-    
-  //   })
