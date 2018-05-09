@@ -24,7 +24,10 @@ const SubjectSchema = new Schema({
     ref: 'User'
   }],
   
-  threads: [ ThreadSchema ]
+  threads: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Thread'
+  }],
 
 }, {
   timestamps: {
