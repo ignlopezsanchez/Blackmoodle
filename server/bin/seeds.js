@@ -151,28 +151,44 @@ User.create(users, (err, usersDocs) => {
             degree: degreeOne._id,
             course: 1,
             teacher: [userJuan._id, userBea._id],
-            threads: [ThreadOne._id]
+            threads: [ThreadOne._id],
+            files: [{
+              name: "Dynamic views",
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
+            }]
           },
           {
             name: "Programación de microcontrolador",
             degree: degreeOne._id,
             course: 3,
             teacher: userBea._id,
-            threads: [ThreadTwo._id]
+            threads: [ThreadTwo._id],
+            files: [{
+              name: "Dynamic views",
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
+            }]
           },
           {
             name: "Programacion Avanzada",
             degree: degreeTwo._id,
             course: 4,
             teacher: userJuan._id,
-            threads: [ThreadThree._id]
+            threads: [ThreadThree._id],
+            files: [{
+              name: "Dynamic views",
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
+            }]
           },
           {
             name: "Patrones de diseño",
             degree: degreeTwo._id,
             course: 2,
             teacher: [userJuan._id, userBea._id],
-            threads: [ThreadFour._id]
+            threads: [ThreadFour._id],
+            files: [{
+              name: "Dynamic views",
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
+            }]
           }
         ]; 
       

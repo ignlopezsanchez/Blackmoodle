@@ -18,7 +18,10 @@ const SubjectSchema = new Schema({
     enum: [1, 2, 3, 4],
     required: [true, "Course is required"]
   },
-
+  files: {
+    type: Array,
+    
+  },
   teacher: [{
     type: Schema.Types.ObjectId,
     ref: 'User'

@@ -34,16 +34,25 @@ export class AuthSignupComponent implements OnInit {
     // };
   }
 
-  signup(username, email, password) {
+  signup() {
     const user = {
       username: this.username,
       password: this.password,
-      email: this.email,
-    
+      email: this.email,   
     };
-    this.service.signup(user)
-      .catch(e => this.error = e)
-      .subscribe(() => this.router.navigate(['login']));
+      this.service.signup(user)
+      this.router.navigate(['login']);
+
+      this.uploader.onBuildItemForm = (item, form) => {
+        form.append('username', this.username);
+        form.append('email', this.email);
+        form.append('password', this.password);
+
+      };
+  
+      this.uploader.uploadAll();
+      
+
   }
 
 }

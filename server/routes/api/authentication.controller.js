@@ -17,11 +17,15 @@ const logInPromise = (user, req) => new Promise((resolve,reject) => {
 
 
 /* GET home page */
-router.post('/signup', uploadCloud.single("photo"), (req, res, next) => {
+router.post('/signup', uploadCloud.single("file"), (req, res, next) => {
     const {username, email, password, subjects, birthDate, isTeacher} = req.body;
-    if (req.file){
-        photo = req.file.url
-    }
+    console.log(req.body)
+        if (req.file){
+            photo = req.file.url
+        }
+        else {
+            photo = "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525951910/Project2/1525951909994.jpg";
+        }
     if (!username || !password) {
       res.status(400).json({ message: 'Provide username and password' });
       return;
@@ -98,12 +102,20 @@ router.get("/profile", ensureLoggedIn('/api/login'), (req, res) => {
   });
   
   //CRUD --- edit profile
-router.put("/profile", [uploadCloud.single("photo"), ensureLoggedIn('/api/login')] ,(req, res) => {
+router.put("/profile", [uploadCloud.single("file"), ensureLoggedIn('/api/login')] ,(req, res) => {
     const salt = bcrypt.genSaltSync(bcryptSalt);
     let id = req.user.id;
-    const {username, email, password, subjects, photo, birthDate, isTeacher} = req.body;
+    const {username, email, password, subjects, birthDate, isTeacher} = req.body;
     const hashPass = bcrypt.hashSync(password, salt);
-    var editUser = {username, email, hashPass, subjects, photo, birthDate, isTeacher};
+    if (req.file){
+        var photo = req.file.url;
+        var editUser = {username, email, password: hashPass, subjects, photo, birthDate, isTeacher};
+    }
+    else{
+        var editUser = {username, email, password: hashPass, subjects, birthDate, isTeacher};
+        }
+      
+    
     User.findByIdAndUpdate(id, editUser,{ new: true })
     .then(object => res.json(object))
       .catch(e => next(e));

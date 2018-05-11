@@ -30,10 +30,7 @@ export class SessionService {
   }
 
   signup(user) {
-    return this.http.post(`${environment.BASEURL}/api/signup`, user, this.options)
-      .map(res => res.json())
-      .map(user => this.handleUser(user))
-      .catch(this.handleError);
+    this.handleUser(user);   
   }
 
   login(username, password) {
