@@ -23,28 +23,28 @@ router.get('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {
 });
 
 //CREATE THREAD
-router.post('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {    //dudas de si asi o post al '/'
+router.post('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {    
   const newThread = new Thread({
     _author: req.user._id,
     title: req.body.title,
     content: req.body.content
   })
   Subject
-    .findById(req.params.id)
-    // .populate('_author replies._author')
-    .then((err, subject) => {
-      if (err)     { return res.status(500).json(err); }
-      if (!subject) { return res.status(404).json(err); }
-
-      subject.threads.push(newThread);
-
-      threads.save().then((err) => {
-        if (err)          { return res.status(500).json(err); }
-        if (subject.errors){ return res.status(400).json(subject); }
-
+    .findByIdAndUpdate(req.params.id, { $push: { threads:  newThread } }, {new: true})
+      .then((subject) =>{
+        newThread.save().then(() => {
+          console.log(subject)
         return res.status(200).json(subject);
-      });
-  });
+      })
+        })
+  .catch(err => {
+    if (err)     { return res.status(500).json(err); }
+
+    // return res.status(404).json(err);
+})
+
+  
 });
 
 module.exports = router;
+
