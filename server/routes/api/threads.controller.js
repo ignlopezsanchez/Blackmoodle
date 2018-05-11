@@ -13,7 +13,7 @@ const ensureLoggedIn = require('../../middlewares/ensureLoggedIn')
 
 
 //RETRIEVE ONE THREAD
-router.get('/:id', (req, res, next) => {  
+router.get('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {  
   Thread
     .findById(req.params.id)
     .populate('_author replies')
@@ -28,7 +28,7 @@ router.get('/:id', (req, res, next) => {
 
 
 //CREATE REPLIES
-router.post('/:id/replies', (req, res, next) => {
+router.post('/:id/replies', ensureLoggedIn('/api/login'), (req, res, next) => {
 
   const newReply = new Reply({
     _author: req.user._id,

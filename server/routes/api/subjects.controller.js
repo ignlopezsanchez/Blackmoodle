@@ -10,7 +10,7 @@ const ensureLoggedIn = require('../../middlewares/ensureLoggedIn')
 
 
 //RETRIEVE ONE SUBJECT PROFILE
-router.get('/:id', (req, res, next) => {  
+router.get('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {  
   Subject
     .findById(req.params.id)
     .populate('threads degree teacher')
@@ -23,7 +23,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 //CREATE THREAD
-router.post('/:id', ensureLoggedIn, (req, res, next) => {    //dudas de si asi o post al '/'
+router.post('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {    //dudas de si asi o post al '/'
   const newThread = new Thread({
     _author: req.user._id,
     title: req.body.title,
