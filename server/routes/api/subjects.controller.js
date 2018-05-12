@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const Thread = require('../../models/Thread');
+const Deadline = require('../../models/Deadline');
+const Note = require('../../models/Note');
 const User = require('../../models/User');
 const Degree = require('../../models/Degree');
 const Subject = require('../../models/Subject');
-const ensureLoggedIn = require('../../middlewares/ensureLoggedIn')
+const _ = require('lodash')
+const ensureLoggedIn = require('../../middlewares/ensureLoggedIn');
+const uploadCloud = require("../../config/cloudinary.js");
+
 
 
 
@@ -22,29 +26,10 @@ router.get('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {
     });
 });
 
-//CREATE THREAD
-router.post('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {    
-  const newThread = new Thread({
-    _author: req.user._id,
-    title: req.body.title,
-    content: req.body.content
-  })
-  Subject
-    .findByIdAndUpdate(req.params.id, { $push: { threads:  newThread } }, {new: true})
-      .then((subject) =>{
-        newThread.save().then(() => {
-          console.log(subject)
-        return res.status(200).json(subject);
-      })
-        })
-  .catch(err => {
-    if (err)     { return res.status(500).json(err); }
 
-    // return res.status(404).json(err);
-})
 
-  
-});
+
+
 
 module.exports = router;
 

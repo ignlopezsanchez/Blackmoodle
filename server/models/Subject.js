@@ -22,7 +22,7 @@ const SubjectSchema = new Schema({
   },
   notes: [{
     type: Schema.Types.ObjectId,
-    ref: 'Deadline'
+    ref: 'Note'
   }],
   teacher: [{
     type: Schema.Types.ObjectId,

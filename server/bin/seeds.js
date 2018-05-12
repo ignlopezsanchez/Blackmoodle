@@ -6,10 +6,10 @@ const Degree = require('../models/Degree');
 const Reply = require('../models/Reply');
 const Subject = require('../models/Subject');
 const Thread = require('../models/Thread');
+const Deadline = require('../models/Deadline');
+const Note = require('../models/Note');
+
 const DBURL = process.env.MONGODB_URL;
-
-
-
 
 mongoose
   .connect(DBURL)
@@ -19,6 +19,9 @@ mongoose
     Reply.collection.drop();
     Subject.collection.drop();
     Thread.collection.drop();
+    Deadline.collection.drop();
+    Note.collection.drop();
+
     console.log("Connected to Mongo!");
   })
   .catch(err => {
@@ -99,7 +102,6 @@ User.create(users, (err, usersDocs) => {
   .then(degreeDocs => {
     degreeOne = degreeDocs[0];
     degreeTwo = degreeDocs[1];
-
     console.log("Degrees creados")
     })
     .then(()=>{
@@ -136,81 +138,132 @@ User.create(users, (err, usersDocs) => {
         ThreadTwo = threadDocs[1];
         ThreadThree = threadDocs[2];
         ThreadFour = threadDocs[3];
-        console.log(ThreadOne._id)
-
         console.log(`Created ${threadDocs.length} threads`);
       })
-      .then(()=>{
-        const subjects = [
+      .then(() =>{
+        
+        const deadlines = [
           {
-            name: "Programacion I",
-            degree: degreeOne._id,
-            course: 1,
-            teacher: [userJuan._id, userBea._id],
-            threads: [ThreadOne._id],
-            files: [{
-              name: "Dynamic views",
-              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
-            }]
+            _author: userJuan._id,
+            name: 'First Deadline',
+            date: new Date,
           },
           {
-            name: "Programación de microcontrolador",
-            degree: degreeOne._id,
-            course: 3,
-            teacher: userBea._id,
-            threads: [ThreadTwo._id],
-            files: [{
-              name: "Dynamic views",
-              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
-            }]
+            _author: userBea._id,
+            name: 'Second Deadline',
+            date: new Date,
           },
           {
-            name: "Programacion Avanzada",
-            degree: degreeTwo._id,
-            course: 4,
-            teacher: userJuan._id,
-            threads: [ThreadThree._id],
-            files: [{
-              name: "Dynamic views",
-              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
-            }]
+            _author: userBea._id,
+            name: 'Third Deadline',
+            date: new Date,
           },
           {
-            name: "Patrones de diseño",
-            degree: degreeTwo._id,
-            course: 2,
-            teacher: [userJuan._id, userBea._id],
-            threads: [ThreadFour._id],
-            files: [{
-              name: "Dynamic views",
-              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf"
-            }]
-          }
-        ]; 
+            _author: userNacho._id,
+            name: 'Fourth Deadline',
+            date: new Date,
+          },
+        ];
       
-        Subject.create(subjects).then(subjectDocs => {
-          const subjectOne = subjectDocs[0];
-          const subjectTwo = subjectDocs[1];
-          const subjectThree = subjectDocs[2];
-          const subjectFour = subjectDocs[3];
-
-          userJuan.update({ $push: { subjects: { $each: [ subjectOne._id, subjectThree._id, subjectFour._id ] } } })
-          .then(()=>userBea.update({ $push: { subjects: { $each: [ subjectOne._id, subjectTwo._id, subjectFour._id ] } } }))
-          .then(()=>userAdmin.update({ $push: { subjects: { $each: [ subjectOne._id, subjectTwo._id, subjectThree._id, subjectFour._id ] } } }))
-          .then(()=>userNacho.update({ $push: { subjects: { $each: [ subjectOne._id, subjectTwo._id, subjectThree._id, subjectFour._id ] } } }))
-          .then(() => mongoose.connection.close())
-          
-          
-          
-      
-          console.log(`Created ${subjectDocs.length} subjects`);
+        Deadline.create(deadlines, (err, deadlineDocs) => {
+          if (err) { throw(err) }
+          DeadlineOne = deadlineDocs[0];
+          DeadlineTwo = deadlineDocs[1];
+          DeadlineThree = deadlineDocs[2];
+          DeadlineFour = deadlineDocs[3]; 
+          console.log(`Created ${deadlineDocs.length} deadlines`);
         })
+        .then(() =>{
+          const notes = [
+            {
+              _author: userJuan._id,
+              name: 'Dynamic views',
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf",
+            },
+            {
+              _author: userBea._id,
+              name: 'Dynamic views',
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf",
+            },
+            {
+              _author: userBea._id,
+              name: 'Dynamic views',
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf",
+            },
+            {
+              _author: userNacho._id,
+              name: 'Dynamic views',
+              url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf",
+            },
+          ];
+          Note.create(notes, (err, notesDocs) => {
+            if (err) { throw(err) }
+            NotesOne = notesDocs[0];
+            NotesTwo = notesDocs[1];
+            NotesThree = notesDocs[2];
+            NotesFour = notesDocs[3];    
+            console.log(`Created ${notesDocs.length} notes`);
+          })
+
+          .then(()=>{
+            const subjects = [
+              {
+                name: "Programacion I",
+                degree: degreeOne._id,
+                course: 1,
+                teacher: [userJuan._id, userBea._id],
+                threads: [ThreadOne._id],
+                deadlines: [DeadlineOne._id],
+                notes: [NotesOne._id],
+              },
+              {
+                name: "Programación de microcontrolador",
+                degree: degreeOne._id,
+                course: 3,
+                teacher: userBea._id,
+                threads: [ThreadTwo._id],
+                deadlines: [DeadlineTwo._id],
+                notes: [NotesTwo._id],
+              },
+              {
+                name: "Programacion Avanzada",
+                degree: degreeTwo._id,
+                course: 4,
+                teacher: userJuan._id,
+                threads: [ThreadThree._id],
+                deadlines: [DeadlineThree._id],
+                notes: [NotesThree._id],
+
+              },
+              {
+                name: "Patrones de diseño",
+                degree: degreeTwo._id,
+                course: 2,
+                teacher: [userJuan._id, userBea._id],
+                threads: [ThreadFour._id],
+                deadlines: [DeadlineFour._id],
+                notes: [NotesFour._id],
+
+              }
+            ]; 
+          
+            Subject.create(subjects).then(subjectDocs => {
+              const subjectOne = subjectDocs[0];
+              const subjectTwo = subjectDocs[1];
+              const subjectThree = subjectDocs[2];
+              const subjectFour = subjectDocs[3];
+    
+              userJuan.update({ $push: { subjects: { $each: [ subjectOne._id, subjectThree._id, subjectFour._id ] } } })
+              .then(()=>userBea.update({ $push: { subjects: { $each: [ subjectOne._id, subjectTwo._id, subjectFour._id ] } } }))
+              .then(()=>userAdmin.update({ $push: { subjects: { $each: [ subjectOne._id, subjectTwo._id, subjectThree._id, subjectFour._id ] } } }))
+              .then(()=>userNacho.update({ $push: { subjects: { $each: [ subjectOne._id, subjectTwo._id, subjectThree._id, subjectFour._id ] } } }))
+              .then(() => mongoose.connection.close())         
+              console.log(`Created ${subjectDocs.length} subjects`);
+            })
+          })
+          .catch((e) => console.log(e))
+        })       
       })
-      .catch((e) => console.log(e))
-
-
-
-
     })
   })
 

@@ -5,6 +5,8 @@ const authRoutes = require('./authentication.controller');
 const crudRoutes  = require('./crud.controller');
 const subjectRoutes = require('./subjects.controller');
 const threadsRoutes = require('./threads.controller');
+const deadlinesRoutes = require('./deadlines.controller');
+const notesRoutes = require('./notes.controller');
 
 // const Degree = require("../../models/Degree");
 // const Reply = require("../../models/Reply");
@@ -16,6 +18,9 @@ const threadsRoutes = require('./threads.controller');
 router.use('/', authRoutes);
 router.use('/subject', subjectRoutes);
 router.use('/thread', threadsRoutes)
+router.use('/deadlines', deadlinesRoutes)
+router.use('/notes', notesRoutes)
+
 
 
 
