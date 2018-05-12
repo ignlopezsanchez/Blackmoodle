@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-const ThreadSchema = require('./Thread').schema;
+// const ThreadSchema = require('./Thread').schema;
+// const DeadlineSchema = require('./Deadline').schema;
+
 
 
 const SubjectSchema = new Schema({
@@ -18,10 +20,10 @@ const SubjectSchema = new Schema({
     enum: [1, 2, 3, 4],
     required: [true, "Course is required"]
   },
-  files: {
-    type: Array,
-    
-  },
+  notes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Deadline'
+  }],
   teacher: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -30,6 +32,10 @@ const SubjectSchema = new Schema({
   threads: [{
     type: Schema.Types.ObjectId,
     ref: 'Thread'
+  }],
+  deadlines: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Deadline'
   }],
 
 }, {
