@@ -109,10 +109,10 @@ router.put("/profile", [uploadCloud.single("file"), ensureLoggedIn('/api/login')
     const hashPass = bcrypt.hashSync(password, salt);
     if (req.file){
         var photo = req.file.url;
-        var editUser = {username, email, password: hashPass, subjects, photo, birthDate, isTeacher};
+        var editUser = {username, email, password: hashPass, photo, birthDate, isTeacher};
     }
     else{
-        var editUser = {username, email, password: hashPass, subjects, birthDate, isTeacher};
+        var editUser = {username, email, password: hashPass, birthDate, isTeacher, subjects};
         }
       
     
