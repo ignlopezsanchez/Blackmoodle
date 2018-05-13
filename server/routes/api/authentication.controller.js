@@ -99,7 +99,14 @@ router.get("/profile", ensureLoggedIn(), (req, res) => {
   
     let idUser = req.user.id;
     User.findById(idUser)
-      .populate('subjects')
+      .populate({
+          path: 'subjects',
+          model: 'Subject', 
+          populate:{
+              path: 'degree', 
+              model:'Degree'
+            }
+        })  
       .then(object => res.json(object))
       .catch(e => next(e));
   });

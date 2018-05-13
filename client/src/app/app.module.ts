@@ -15,6 +15,7 @@ import { ThreadService } from './services/thread.service';
 import { DeadlineService } from './services/deadline.service';
 import { NoteService } from './services/note.service';
 import { SubjectService } from './services/subject.service';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SubjectService } from './services/subject.service';
     AppComponent,
     AuthLoginComponent,
     AuthSignupComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    ProfileComponent
 ],
   imports: [
     BrowserModule,
