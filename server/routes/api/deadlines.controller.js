@@ -11,7 +11,7 @@ const uploadCloud = require("../../config/cloudinary.js");
 
 
 //CREATE DEADLINE
-router.post('/:idSubject/deadlines', [ensureLoggedIn(), isTeacher()], (req, res, next) => {  
+router.post('/:idSubject/new', [ensureLoggedIn(), isTeacher()], (req, res, next) => {  
   let idSubject = req.params.idSubject;  
   const newDeadline = new Deadline({
     _author: req.user._id,

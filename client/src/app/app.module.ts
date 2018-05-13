@@ -11,6 +11,10 @@ import { SessionService } from './services/session.service';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { AuthSignupComponent } from './auth-signup/auth-signup.component';
 import { HttpModule } from '@angular/http';
+import { ThreadService } from './services/thread.service';
+import { DeadlineService } from './services/deadline.service';
+import { NoteService } from './services/note.service';
+import { SubjectService } from './services/subject.service';
 
 
 @NgModule({
@@ -26,7 +30,7 @@ import { HttpModule } from '@angular/http';
     HttpModule,
     FormsModule
   ],
-  providers: [SessionService],
+  providers: [SessionService, ThreadService, DeadlineService, NoteService, SubjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

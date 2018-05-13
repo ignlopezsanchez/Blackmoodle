@@ -55,4 +55,17 @@ export class SessionService {
       .catch(this.handleError);
   }
 
+  getProfile() {
+    return this.http.get(`${environment.BASEURL}/api/profile`, this.options)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+  editProfile(update) {
+    return this.http.put(`${environment.BASEURL}/api/profile`, update, this.options)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+
+
 }

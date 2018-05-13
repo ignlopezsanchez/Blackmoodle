@@ -16,8 +16,8 @@ const notesRoutes = require('./notes.controller');
 
 
 router.use('/', authRoutes);
-router.use('/subject', subjectRoutes);
-router.use('/thread', threadsRoutes)
+router.use('/subjects', subjectRoutes);
+router.use('/threads', threadsRoutes)
 router.use('/deadlines', deadlinesRoutes)
 router.use('/notes', notesRoutes)
 

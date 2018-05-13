@@ -97,8 +97,8 @@ router.get('/logout', ensureLoggedIn(), (req, res) => {
 // Retrive PERSONAL PROFILE
 router.get("/profile", ensureLoggedIn(), (req, res) => {
   
-    let id = req.user.id;
-    User.findById(id)
+    let idUser = req.user.id;
+    User.findById(idUser)
       .populate('subjects')
       .then(object => res.json(object))
       .catch(e => next(e));
