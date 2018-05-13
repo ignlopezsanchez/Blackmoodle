@@ -4,6 +4,7 @@ import 'rxjs/add/operator/catch';
 import { Response, Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 
 // const BASEURL = 'http://localhost:3000';
@@ -16,7 +17,7 @@ export class SessionService {
   userEvent: EventEmitter<any> = new EventEmitter();
 
 
-  constructor(private http: Http) {
+  constructor(private http: Http, public router: Router) {
     this.isLoggedIn().subscribe();
   }
 
@@ -48,6 +49,7 @@ export class SessionService {
   }
 
   logout() {
+    this.router.navigate(['/login'])
     return this.http
       .get(`${environment.BASEURL}/api/logout`,  this.options)
       .map(res => res.json())
