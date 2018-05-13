@@ -4,13 +4,16 @@ const Note = require('../../models/Note');
 const Subject = require('../../models/Subject');
 const _ = require('lodash')
 const ensureLoggedIn = require('../../middlewares/ensureLoggedIn');
+const ensureLoggedOut = require('../../middlewares/ensureLoggedOut');
+const hasSubject = require('../../middlewares/hasSubject');
+const noteAuthor = require('../../middlewares/noteAuthor');
 const uploadCloud = require("../../config/cloudinary.js");
 
 
 
 //CREATE NOTE
-router.post('/:id/new', [ensureLoggedIn('/api/login'),uploadCloud.single("file")], (req, res, next) => {    
-  let idSubject = req.params.id;
+router.post('/:idSubject/new', [ensureLoggedIn(),uploadCloud.single("file"), hasSubject()], (req, res, next) => {    
+  let idSubject = req.params.idSubject;
   if (req.file){
     url = req.file.url
 }
@@ -39,8 +42,8 @@ else {
 
 
 //EDIT NOTE
-router.put('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {    
-  let id = req.params.id;
+router.put('/:idNote', [ensureLoggedIn(),uploadCloud.single("file"), noteAuthor()], (req, res, next) => {    
+  let idNote = req.params.idNote;
   if (req.file){
     url = req.file.url
 }
@@ -52,9 +55,10 @@ else {
     name: req.body.name,
     url: url
   };
+  console.log(update)
   const p = _.pickBy(update, _.identity)
   Note
-    .findByIdAndUpdate(id, p, {new: true})
+    .findByIdAndUpdate(idNote, p, {new: true})
       .then((notes) =>{
         return res.status(200).json(notes);
       })       

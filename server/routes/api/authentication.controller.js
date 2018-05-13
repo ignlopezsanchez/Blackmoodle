@@ -5,7 +5,9 @@ const _ = require('lodash')
 
 const bcryptSalt = 10;
 const bcrypt = require('bcrypt');
-const ensureLoggedIn = require('../../middlewares/ensureLoggedIn')
+const ensureLoggedIn = require('../../middlewares/ensureLoggedIn');
+const ensureLoggedOut = require('../../middlewares/ensureLoggedOut')
+
 const uploadCloud = require("../../config/cloudinary.js");
 
 
@@ -18,7 +20,7 @@ const logInPromise = (user, req) => new Promise((resolve,reject) => {
 
 
 /* GET home page */
-router.post('/signup', uploadCloud.single("file"), (req, res, next) => {
+router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, res, next) => {
     const {username, email, password, subjects, birthDate, isTeacher} = req.body;
     console.log(req.body)
         if (req.file){
@@ -55,7 +57,7 @@ router.post('/signup', uploadCloud.single("file"), (req, res, next) => {
     .catch(e => res.status(500).json({message:e.message}));
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', ensureLoggedOut(), (req, res, next) => {
     const {username, password} = req.body;
   
     if (!username || !password) {
@@ -83,7 +85,7 @@ router.get('/loggedin', (req, res) => {
     }
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', ensureLoggedIn(), (req, res) => {
     if(req.user){
         req.logout();
         return res.status(200).json({message:"User logged out"});
@@ -93,7 +95,7 @@ router.get('/logout', (req, res) => {
 });
 
 // Retrive PERSONAL PROFILE
-router.get("/profile", ensureLoggedIn('/api/login'), (req, res) => {
+router.get("/profile", ensureLoggedIn(), (req, res) => {
   
     let id = req.user.id;
     User.findById(id)
@@ -103,7 +105,7 @@ router.get("/profile", ensureLoggedIn('/api/login'), (req, res) => {
   });
   
   //CRUD --- edit profile
-router.put("/profile", [uploadCloud.single("file"), ensureLoggedIn('/api/login')] ,(req, res) => {
+router.put("/profile", [uploadCloud.single("file"), ensureLoggedIn()] ,(req, res) => {
     const salt = bcrypt.genSaltSync(bcryptSalt);
     let id = req.user.id;
     const {username, email, password, subjects, birthDate, isTeacher} = req.body;
@@ -122,3 +124,12 @@ router.put("/profile", [uploadCloud.single("file"), ensureLoggedIn('/api/login')
       .catch(e => next(e));
     });
 module.exports = router;
+
+
+
+
+
+
+
+
+  

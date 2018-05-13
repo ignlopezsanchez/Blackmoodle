@@ -5,28 +5,21 @@ const User   = require('../../models/User');
 const Subject   = require('../../models/Subject');
 const Reply    = require('../../models/Reply');
 const ensureLoggedIn = require('../../middlewares/ensureLoggedIn');
+const ensureLoggedOut = require('../../middlewares/ensureLoggedOut');
+const threadAuthor = require('../../middlewares/threadAuthor');
+const replyAuthor = require('../../middlewares/replyAuthor');
+
+const isInCommonSubject = require('../../middlewares/isInCommonSubject');
+const hasSubject = require('../../middlewares/hasSubject');
+
+
 const _ = require('lodash')
 
 
 
-
-
-//RETRIEVE ONE THREAD
-router.get('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {  
-  Thread
-    .findById(req.params.id)
-    .populate('_author replies')
-    .then( (err, thread) => {
-      if (err)     { return res.status(500).json(err); }
-      if (!thread) { return res.status(404).json(err); }
-
-      return res.status(200).json(thread);
-    });
-});
-
 //CREATE THREAD
-router.post('/:id/new', ensureLoggedIn('/api/login'), (req, res, next) => {
-  let idSubject = req.params.id;    
+router.post('/:idSubject/new', [ensureLoggedIn(),hasSubject()], (req, res, next) => { 
+  let idSubject = req.params.idSubject;    
   const newThread = new Thread({
     _author: req.user._id,
     title: req.body.title,
@@ -47,10 +40,25 @@ router.post('/:id/new', ensureLoggedIn('/api/login'), (req, res, next) => {
 }) 
 });
 
+//RETRIEVE ONE THREAD
+router.get('/:idSubject/:idThread', [ensureLoggedIn(), isInCommonSubject()], (req, res, next) => {  
+  let idThread = req.params.idThread;
+  Thread
+    .findById(idThread)
+    .populate('_author replies')
+    .then( (err, thread) => {
+      if (err)     { return res.status(500).json(err); }
+      if (!thread) { return res.status(404).json(err); }
+
+      return res.status(200).json(thread);
+    });
+});
+
+
 
 //EDIT THREAD
-router.put('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {  
-  let idThread = req.params.id;  
+router.put('/:idThread', [ensureLoggedIn(), threadAuthor()], (req, res, next) => {  
+  let idThread = req.params.idThread;  
 
   const update = {
     _author: req.user._id,
@@ -73,13 +81,14 @@ router.put('/:id', ensureLoggedIn('/api/login'), (req, res, next) => {
 
 
 //CREATE REPLY
-router.post('/:id/reply', ensureLoggedIn('/api/login'), (req, res, next) => {    
+router.post('/:idSubject/:idThread/reply', [ensureLoggedIn(),hasSubject()], (req, res, next) => {    
+  let idThread = req.params.idThread;
   const newReply = new Reply({
     _author: req.user._id,
     content: req.body.content
   });
   Thread
-    .findByIdAndUpdate(req.params.id, { $push: { replies:  newReply } }, {new: true})
+    .findByIdAndUpdate(idThread, { $push: { replies:  newReply } }, {new: true})
       .then((thread) =>{
         newReply.save().then(() => {
           console.log(thread)
@@ -93,8 +102,8 @@ router.post('/:id/reply', ensureLoggedIn('/api/login'), (req, res, next) => {
 });
 
 //EDITE REPLY
-router.put('/replies/:id', ensureLoggedIn('/api/login'), (req, res, next) => {    
-  let id = req.params.id;
+router.put('/replies/:idReply', [ensureLoggedIn(), replyAuthor()], (req, res, next) => {    
+  let idReply = req.params.idReply;
   const update = {
     _author: req.user._id,
     content: req.body.content
@@ -102,7 +111,7 @@ router.put('/replies/:id', ensureLoggedIn('/api/login'), (req, res, next) => {
   const p = _.pickBy(update, _.identity)
 
   Reply
-    .findByIdAndUpdate(id, p, {new: true})
+    .findByIdAndUpdate(idReply, p, {new: true})
       .then((reply) =>{
         return res.status(200).json(reply);     
         })

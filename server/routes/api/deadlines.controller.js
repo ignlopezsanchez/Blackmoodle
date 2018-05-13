@@ -4,19 +4,22 @@ const Deadline = require('../../models/Deadline');
 const Subject = require('../../models/Subject');
 const _ = require('lodash')
 const ensureLoggedIn = require('../../middlewares/ensureLoggedIn');
+const ensureLoggedOut = require('../../middlewares/ensureLoggedOut');
+const isTeacher = require('../../middlewares/isTeacher');
 const uploadCloud = require("../../config/cloudinary.js");
 
 
 
 //CREATE DEADLINE
-router.post('/:id/deadlines', ensureLoggedIn('/api/login'), (req, res, next) => {    
+router.post('/:idSubject/deadlines', [ensureLoggedIn(), isTeacher()], (req, res, next) => {  
+  let idSubject = req.params.idSubject;  
   const newDeadline = new Deadline({
     _author: req.user._id,
     name: req.body.name,
     date: req.body.date
   });
   Subject
-    .findByIdAndUpdate(req.params.id, { $push: { deadlines:  newDeadline } }, {new: true})
+    .findByIdAndUpdate(idSubject, { $push: { deadlines:  newDeadline } }, {new: true})
       .then((subject) =>{
         newDeadline.save().then(() => {
         return res.status(200).json(subject);
@@ -30,8 +33,8 @@ router.post('/:id/deadlines', ensureLoggedIn('/api/login'), (req, res, next) => 
 });
 
 //EDIT DEADLINE
-router.put('/deadlines/:id', ensureLoggedIn('/api/login'), (req, res, next) => {    
-  let id = req.params.id;
+router.put('/:idSubject/:idDeadline', [ensureLoggedIn(), isTeacher()], (req, res, next) => {    
+  let idDeadline = req.params.idDeadline;
   const update = {
     _author: req.user._id,
     name: req.body.name,
@@ -39,7 +42,7 @@ router.put('/deadlines/:id', ensureLoggedIn('/api/login'), (req, res, next) => {
   };
   const p = _.pickBy(update, _.identity)
   Deadline
-    .findByIdAndUpdate(id, p, {new: true})
+    .findByIdAndUpdate(idDeadline, p, {new: true})
       .then((deadlines) =>{
         return res.status(200).json(deadlines);
       })       

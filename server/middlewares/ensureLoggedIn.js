@@ -1,4 +1,4 @@
-const ensureLoggedIn = (redirectTo) => (req, res, next) => {
+const ensureLoggedIn = () => (req, res, next) => {
   if (req.user) {
     console.log(`ACCESS GRANTED to user ${req.user.username}`);
     next();

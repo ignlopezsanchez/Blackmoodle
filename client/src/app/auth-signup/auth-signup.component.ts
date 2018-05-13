@@ -41,7 +41,6 @@ export class AuthSignupComponent implements OnInit {
       email: this.email,   
     };
       this.service.signup(user)
-      this.router.navigate(['login']);
 
       this.uploader.onBuildItemForm = (item, form) => {
         form.append('username', this.username);
@@ -50,8 +49,8 @@ export class AuthSignupComponent implements OnInit {
 
       };
   
-      this.uploader.uploadAll();
-      
+      this.uploader.uploadAll();     
+      this.router.navigate(['login']);
 
   }
 
