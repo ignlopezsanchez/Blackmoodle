@@ -62,7 +62,6 @@ export class SubjectComponent implements OnInit {
   }
 
   uploadNote() {   
-    console.log(this.idSubject)
     const note = {
       name: this.apuntes.name,      
     };
@@ -71,9 +70,15 @@ export class SubjectComponent implements OnInit {
         form.append('name', note.name);
       };  
       
-      this.uploader.uploadAll();     
+      this.uploader.uploadAll();                                                //Da problemas porque no recarga luego la pagina.
       this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
         this.subject = subject;
       })
+  }
+
+  leaveSubject(){
+    this.subjectService.leaveSubject(this.idSubject).subscribe(() => {
+      this.router.navigate([`/home`])
+    })
   }
 }

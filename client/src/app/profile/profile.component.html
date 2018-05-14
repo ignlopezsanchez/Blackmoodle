@@ -22,7 +22,7 @@
         <p>Carrera: {{subject.degree.name}}</p>
         <p>Curso: {{subject.course}}</p>
         <p>Hilos abiertos: {{subject.threads.length}}</p>
-        <a href="">Entrar</a>
+        <a [routerLink]="['/subject', subject._id]">Entrar</a>
 
       </li>
 
