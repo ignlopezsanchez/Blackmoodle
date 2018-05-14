@@ -16,7 +16,7 @@ handleError(e) {
   return Observable.throw(e.json().message);
 }
 
-getAllSubjects() {
+getAllSubjects() {                                                                //para el signup
   return this.http.get(`${environment.BASEURL}/api/subjects`, this.options)
     .map(res => res.json())
     .catch(this.handleError);

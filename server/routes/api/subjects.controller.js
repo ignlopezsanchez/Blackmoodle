@@ -34,10 +34,24 @@ router.get('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => 
   let idSubject = req.params.idSubject;
   Subject
     .findById(idSubject)
-    .populate('threads degree teacher')
-    .then(subject => {
-      // if (!subject) { return res.status(404).json(err); }
+    .populate('degree teacher deadlines notes')
+    .populate({
+      path: 'threads',
+      model: 'Thread', 
+        populate:[{
+          path: '_author', 
+          model:'User'
+        },
+        {
+          path: 'replies', 
+          model:'Reply'
+        }],
 
+    }) 
+    .then(subject => {
+      subject.threads.sort((a, b) => {
+        return b.updated_at - a.updated_at
+      })
       return res.status(200).json(subject);
     })
     .catch(err =>{

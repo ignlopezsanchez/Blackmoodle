@@ -20,6 +20,7 @@ router.post('/:idSubject/new', [ensureLoggedIn(), isTeacher()], (req, res, next)
   });
   Subject
     .findByIdAndUpdate(idSubject, { $push: { deadlines:  newDeadline } }, {new: true})
+    .populate('deadlines')
       .then((subject) =>{
         newDeadline.save().then(() => {
         return res.status(200).json(subject);

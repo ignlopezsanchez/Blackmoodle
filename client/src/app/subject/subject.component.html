@@ -1,0 +1,68 @@
+<p>
+  subject works!
+</p>
+
+<div class="container">
+  <div *ngIf="user">
+    <div>
+      <ul>
+        <h3>FECHAS LÍMITE</h3>
+  
+        <li *ngFor="let deadline of subject.deadlines">
+          <h4>{{deadline.name}}</h4>
+          <p>{{deadline.date | date:"dd/LL/y"}}</p>
+  
+        </li>
+      </ul>
+      
+      <div *ngIf="user.isTeacher" >
+        <label for="">Nombre:</label>
+        <input type="text" [(ngModel)]="name" name="name">
+        <br><br>
+        <label for="">Fecha:</label>
+        <input type="date" [(ngModel)]="date" name="date">
+        <button (click)="createDeadline()"> Subir </button>
+      </div>
+  
+  
+    </div>
+  </div>
+
+  <div>
+      <ul>
+        <h3>APUNTES</h3>
+  
+        <li *ngFor="let note of subject.notes">
+          <a target="_blank" href="{{note.url}}"><p>{{note.name}}</p></a>
+        
+        </li>
+        
+            <input type="text" [(ngModel)]="apuntes.name" name="name"/>
+            <br>
+            <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+            <br>
+            <button (click)="uploadNote()"> Subir </button>
+  
+      </ul>
+  
+  
+  
+    </div>
+
+
+  <div>
+    <ul>
+      <h3>FORO</h3>
+      <li *ngFor="let thread of subject.threads">
+        <h4>{{thread.title}}</h4>
+        <p>{{thread._author.username}}</p>
+        <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
+
+      </li>
+    </ul>
+  </div>
+
+
+
+
+</div>

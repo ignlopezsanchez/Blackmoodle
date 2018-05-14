@@ -6,6 +6,7 @@ import {routes} from './routes';
 import { FileSelectDirective } from "ng2-file-upload";
 
 
+
 import { AppComponent } from './app.component';
 import { SessionService } from './services/session.service';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
@@ -16,6 +17,7 @@ import { DeadlineService } from './services/deadline.service';
 import { NoteService } from './services/note.service';
 import { SubjectService } from './services/subject.service';
 import { ProfileComponent } from './profile/profile.component';
+import { SubjectComponent } from './subject/subject.component';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { ProfileComponent } from './profile/profile.component';
     AuthLoginComponent,
     AuthSignupComponent,
     FileSelectDirective,
-    ProfileComponent
+    ProfileComponent,
+    SubjectComponent
 ],
   imports: [
     BrowserModule,
