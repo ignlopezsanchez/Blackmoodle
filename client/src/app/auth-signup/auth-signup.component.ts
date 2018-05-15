@@ -25,6 +25,9 @@ export class AuthSignupComponent implements OnInit {
   isTeacher: boolean = false;
   subjects: any = {};
   feedback: string;
+  degree: string;
+  course: number;
+  idSubject: any;
   subjectsToJoin: any = [];
 
   constructor(private service: SessionService,
@@ -34,8 +37,6 @@ export class AuthSignupComponent implements OnInit {
   ngOnInit() {
     this.subjectService.getAllSubjects().subscribe(subjects => {
       this.subjects = subjects;
-      console.log(subjects)
-
 
     })
     // this.uploader.onSuccessItem = (item, response) => {
@@ -47,23 +48,34 @@ export class AuthSignupComponent implements OnInit {
     // };
   }
 
+  addSubject(){
+    console.log(typeof this.idSubject);
+    console.log(typeof this.idSubject.toString())
+
+    
+    this.subjectsToJoin.push(this.idSubject)
+    console.log(typeof this.subjectsToJoin[0]);
+
+  }
+
   signup() {
-    console.log(this.gender)
     const user = {
       username: this.username,
       password: this.password,
       email: this.email,
       gender: this.gender,
+      subjects: this.subjectsToJoin,
       birthDate: this.birthDate,
       isTeacher: this.isTeacher   
     };
-    console.log(this.isTeacher)
+    console.log(user)
         this.uploader.onBuildItemForm = (item, form) => {
           form.append('username', this.username);
           form.append('email', this.email);
           form.append('password', this.password);
           form.append('gender', this.gender);
           form.append('birthDate', this.birthDate);
+          form.append('subjects', this.subjectsToJoin);
           form.append('isTeacher', this.isTeacher);
         };
     
@@ -76,5 +88,6 @@ export class AuthSignupComponent implements OnInit {
         
      
   }
+  
 
 }

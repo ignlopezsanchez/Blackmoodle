@@ -42,10 +42,12 @@
     </select>
 
     <label for="subject">Asignatura:</label>
-    <select name="subject" [(ngModel)]="subject"  >
-      <option *ngFor="let subject of subjects | filterSignup: degree, course" [value]="subject.name">{{subject.name}}</option>
-      <!-- <option *ngFor="let subject of subjects" [value]="subject.name">{{subject.name}}</option> -->
+    <select name="subject" [(ngModel)]="idSubject"  >
+      <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}} 
+      </option>
     </select>
+    <button (click)="addSubject()"> Añadir asignatura </button>
+
     <br><br>
   
 

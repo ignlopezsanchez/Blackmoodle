@@ -1,12 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterSignup'
+  name: 'filterSignup',
 })
 export class FilterSignupPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    return null;
-  }
+  transform(value: Array<any>, degree: any, course:any): any {
+     value = value.filter(e => { 
+      return (e.degree.name === degree) && (e.course === Number(course));
+    });
 
+    return value;
+  }
 }
