@@ -1,12 +1,9 @@
-<p>
-  subject works!
-</p>
 
 <div class="container">
-    <div>
-        <button (click)="leaveSubject()"> Abandonar asignatura</button>
-    </div>
   <div *ngIf="user">
+      <div>
+          <button (click)="leaveSubject()"> Abandonar asignatura</button>
+      </div>
     <div>
       <ul>
         <h3>FECHAS LÍMITE</h3>
@@ -29,7 +26,7 @@
   
   
     </div>
-  </div>
+  
 
   <div>
       <ul>
@@ -57,7 +54,7 @@
     <ul>
       <h3>FORO</h3>
       <li *ngFor="let thread of subject.threads">
-        <h4>{{thread.title}}</h4>
+        <a [routerLink]="['/threads', subject._id, thread._id]"><h4>{{thread.title}}</h4></a>
         <p>{{thread._author.username}}</p>
         <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
 
@@ -66,6 +63,6 @@
   </div>
 
 
-
+  </div>
 
 </div>

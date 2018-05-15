@@ -125,14 +125,14 @@ router.get("/profile", ensureLoggedIn(), (req, res) => {
 router.put("/profile", [uploadCloud.single("file"), ensureLoggedIn()] ,(req, res) => {
     const salt = bcrypt.genSaltSync(bcryptSalt);
     let id = req.user.id;
-    const {username, email, password, subjects, birthDate, isTeacher} = req.body;
+    const {username, email, password, subjects, birthDate} = req.body;
     const hashPass = bcrypt.hashSync(password, salt);
     if (req.file){
         var photo = req.file.url;
-        var editUser = {username, email, password: hashPass, photo, birthDate, isTeacher};
+        var editUser = {username, email, password: hashPass, photo, birthDate};
     }
     else{
-        var editUser = {username, email, password: hashPass, birthDate, isTeacher, subjects};
+        var editUser = {username, email, password: hashPass, birthDate, subjects};
         }
       
     

@@ -1,42 +1,32 @@
-
 <div class="container">
-  <div>
-    <h3>{{this.profile.username}}</h3>
-    <img src="{{this.profile.photo}}" alt="">
-    <h5 *ngIf="profile.isAdmin">Administrador</h5>
-    <h5 *ngIf="!profile.isAdmin && profile.isTeacher && profile.gender == 'Hombre'">Profesor</h5>
-    <h5 *ngIf="!profile.isAdmin && profile.isTeacher && profile.gender == 'Mujer'">Profesora</h5>
-    <h5 *ngIf="!profile.isAdmin && !profile.isTeacher && profile.gender == 'Mujer'">Alumna</h5>
-    <h5 *ngIf="!profile.isAdmin && !profile.isTeacher && profile.gender == 'Hombre'">Alumno</h5>
+  <div *ngIf="service.user">
+    <div>
+      <h3>{{this.profile.username}}</h3>
+      <img src="{{this.profile.photo}}" alt="">
+      <h5 *ngIf="profile.isAdmin">Administrador</h5>
+      <h5 *ngIf="!profile.isAdmin && profile.isTeacher && profile.gender == 'Hombre'">Profesor</h5>
+      <h5 *ngIf="!profile.isAdmin && profile.isTeacher && profile.gender == 'Mujer'">Profesora</h5>
+      <h5 *ngIf="!profile.isAdmin && !profile.isTeacher && profile.gender == 'Mujer'">Alumna</h5>
+      <h5 *ngIf="!profile.isAdmin && !profile.isTeacher && profile.gender == 'Hombre'">Alumno</h5>
 
-    <h5>{{this.profile.email}}</h5>
+      <h5>{{this.profile.email}}</h5>
+      <div *ngIf=" user.isAdmin">
+        <a [routerLink]="['/admin']" class="btn btn-primary">Admin Area </a>
+      </div>
+    </div>
 
-  
-  
+    <div>
+      <ul>
+        <h5>Asignaturas:</h5>
+        <li *ngFor="let subject of profile.subjects">
+          <p>{{subject.name}}</p>
+          <p>Carrera: {{subject.degree.name}}</p>
+          <p>Curso: {{subject.course}}</p>
+          <p>Hilos abiertos: {{subject.threads.length}}</p>
+          <a [routerLink]="['/subject', subject._id]">Entrar</a>
+
+        </li>
+      </ul>
+    </div>
   </div>
-  <div>
-    <ul>
-      <h5>Asignaturas:</h5>
-      <li *ngFor="let subject of profile.subjects">
-        <p>{{subject.name}}</p>
-        <p>Carrera: {{subject.degree.name}}</p>
-        <p>Curso: {{subject.course}}</p>
-        <p>Hilos abiertos: {{subject.threads.length}}</p>
-        <a [routerLink]="['/subject', subject._id]">Entrar</a>
-
-      </li>
-
-
-    </ul>
-
-
-  </div>
-
-
-
-
-
-
-
-
 </div>

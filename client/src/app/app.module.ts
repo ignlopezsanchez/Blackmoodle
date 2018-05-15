@@ -19,6 +19,7 @@ import { SubjectService } from './services/subject.service';
 import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './create-subject/create-subject.component';
+import { ThreadsComponent } from './threads/threads.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CreateSubjectComponent } from './create-subject/create-subject.componen
     FileSelectDirective,
     ProfileComponent,
     SubjectComponent,
-    CreateSubjectComponent
+    CreateSubjectComponent,
+    ThreadsComponent
 ],
   imports: [
     BrowserModule,

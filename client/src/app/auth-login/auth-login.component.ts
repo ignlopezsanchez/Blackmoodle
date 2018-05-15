@@ -21,6 +21,6 @@ export class AuthLoginComponent implements OnInit {
 
   logIn() {
     this.service.login(this.username, this.password)
-    .subscribe(() => this.router.navigate(['/home']));
+    .subscribe(() => this.router.navigate(['/profile']));
   }
 }

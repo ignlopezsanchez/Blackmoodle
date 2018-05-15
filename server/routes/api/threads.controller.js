@@ -45,11 +45,19 @@ router.get('/:idSubject/:idThread', [ensureLoggedIn(), isInCommonSubject()], (re
   let idThread = req.params.idThread;
   Thread
     .findById(idThread)
-    .populate('_author replies')
-    .then( (err, thread) => {
+    .populate('_author')
+    .populate({
+      path: 'replies',
+      model: 'Reply', 
+        populate:{
+          path: '_author', 
+          model:'User'
+        },
+
+    }) 
+    .exec( (err, thread) => {
       if (err)     { return res.status(500).json(err); }
       if (!thread) { return res.status(404).json(err); }
-
       return res.status(200).json(thread);
     });
 });

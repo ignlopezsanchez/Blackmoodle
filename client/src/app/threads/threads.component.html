@@ -1,0 +1,33 @@
+<p>
+  threads works!
+</p>
+
+<div class="container">
+  <div *ngIf="user">
+      <h4>{{thread.title}}</h4>
+      <p>{{thread._author.username}}</p>
+      <p>{{thread.updated_at | date:"dd/LL/y" }}</p>
+      <p>{{thread.content}}</p>
+
+      <ul>
+        <li *ngFor="let reply of thread.replies">
+          <p>{{reply._author.username}}</p>
+          <p>{{reply.updated_at | date:"dd/LL/y" }}</p>
+          <p>{{reply.content}}</p>
+        </li>
+      </ul>
+    
+
+
+      <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
+  
+          <label for="content">Respuesta:</label>
+          <textarea name="content" ngModel required cols="30" rows="10"></textarea>
+          <div>
+            <button type="submit"> Crear respuesta </button>
+          </div>
+        </form>
+
+
+  </div>
+</div>

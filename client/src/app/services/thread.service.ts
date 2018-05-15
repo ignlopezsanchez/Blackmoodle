@@ -24,7 +24,7 @@ export class ThreadService {
 
   getOneThread(idSubject, idThread) {
     return this.http.get(`${environment.BASEURL}/api/threads/${idSubject}/${idThread}`, this.options)
-      .map(res => res.json())
+      .map(res =>res.json())
       .catch(this.handleError);
   }
 
