@@ -8,7 +8,8 @@ const Subject = require('../../models/Subject');
 const _ = require('lodash')
 const ensureLoggedIn = require('../../middlewares/ensureLoggedIn');
 const ensureLoggedOut = require('../../middlewares/ensureLoggedOut');
-const hasSubject = require('../../middlewares/hasSubject')
+const hasSubject = require('../../middlewares/hasSubject');
+const isAdmin = require('../../middlewares/isAdmin');
 const uploadCloud = require("../../config/cloudinary.js");
 
 
@@ -59,6 +60,26 @@ router.get('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => 
     })
 });
 
+
+//CREATE ONE SUBJECT
+router.post('/new', [ensureLoggedIn(), isAdmin()], (req, res, next) => { 
+
+  const newSubject = new Subject({
+    name: req.body.name,
+    degree: req.body.degree,
+    course: req.body.course,
+    notes: [],
+    teacher: [],
+    threads: [],
+    deadlines: [], 
+  });
+
+  newSubject.save().then((subject) => {
+    return res.status(200).json(subject);
+  })
+  
+});
+
 //LEAVE ONE SUBJECT
 router.post('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => { 
   let idSubject = req.params.idSubject; 
@@ -78,5 +99,7 @@ router.post('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) =>
       if (err)     { return res.status(500).json(err); }
     })
 });
+
+
 
 module.exports = router;

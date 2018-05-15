@@ -1,6 +1,8 @@
 const express = require('express');
 const router  = express.Router();
 const User = require('../../models/User');
+const Subject = require('../../models/Subject');
+
 const _ = require('lodash')
 
 const bcryptSalt = 10;
@@ -51,7 +53,12 @@ router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, re
           isTeacher
         });
     
-        return theUser.save().then( user => logInPromise(user,req));
+        return theUser.save().then( user => {
+            return Promise.all( user.subjects.map(e => {
+                Subject.findByIdAndUpdate(e.toString(), {$push: { teacher: user._id}} , {new:true}).then()
+            })).then(() => logInPromise(user,req))
+            
+        });
     })
     .then(user => res.status(200).json(user))
     .catch(e => res.status(500).json({message:e.message}));

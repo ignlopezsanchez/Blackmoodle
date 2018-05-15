@@ -34,4 +34,9 @@ leaveSubject(idSubject) {
     .catch(this.handleError);
 }
 
+createSubject(subject) {
+  return this.http.post(`${environment.BASEURL}/api/subjects/new`, {subject}, this.options)
+    .map(res => res.json())
+    .catch(this.handleError);
+}
 }
