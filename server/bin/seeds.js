@@ -96,6 +96,86 @@ User.create(users, (err, usersDocs) => {
       name:"Grado en Ingeniería Informática",
       photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
 
+    },
+    {
+      name:"Grado en Ingeniería Mecánica",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Ingeniería Eléctrica",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Ingeniería Química",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Psicología",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Administración y dirección de empresas",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Relaciones laborales",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Arquitectura",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Química",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Fisioterapia",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Medicina",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Geografía",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Topografía",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Bellas Artes",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Podologia",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Odontología",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
+    },
+    {
+      name:"Grado en Telecomunicaciones",
+      photo: "https://www.apple.com/euro/mac/home/x/generic/images/social/macbook_mac_og.png?201804200734"
+
     }
   ]
   Degree.create(degrees)

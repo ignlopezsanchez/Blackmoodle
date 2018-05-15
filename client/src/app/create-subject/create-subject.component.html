@@ -1,9 +1,7 @@
-<p>
-  create-subject works!
-</p>
 <div class="container">
+    <h1>ADMIN AREA</h1>
   <div *ngIf="user.isAdmin">
-    <h2>CREAR ASIGNATURA</h2>
+    <h3>CREAR ASIGNATURA</h3>
     <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
   
     <label for="name">Nombre de la nueva asignatura:</label>
