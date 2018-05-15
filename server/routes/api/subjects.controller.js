@@ -29,7 +29,12 @@ router.get('/degrees', [ensureLoggedIn(), isAdmin()], (req, res, next) => {
 router.get('/', (req, res, next) => {  
   Subject
     .find({})
-    .populate('degree')
+    .select({
+      'degree': 1,
+      'name': 1,
+      'course': 1
+    })
+    .populate('degree', 'name')
     .then(subjects => {
       // if (!subjects) { return res.status(404).json(err); }
       return res.status(200).json(subjects);

@@ -4,15 +4,35 @@
 
 <div class="container">
   <div *ngIf="user">
+
+      <a [routerLink]="['/subject', idSubject]"><h4>Volver</h4></a>
+
+    <br><br>
       <h4>{{thread.title}}</h4>
       <p>{{thread._author.username}}</p>
-      <p>{{thread.updated_at | date:"dd/LL/y" }}</p>
+
+      <div *ngIf="thread.updated_at === thread.created_at;else othersContent">
+          <p>Creado el: {{thread.created_at | date:"dd/LL/y h:mm" }}</p>          
+      </div>
+      
+      <ng-template #othersContent>
+        <p>Editado el: {{thread.updated_at | date:"dd/LL/y h:mm" }}</p>
+      </ng-template>   
+
       <p>{{thread.content}}</p>
 
       <ul>
         <li *ngFor="let reply of thread.replies">
           <p>{{reply._author.username}}</p>
-          <p>{{reply.updated_at | date:"dd/LL/y" }}</p>
+
+          <div *ngIf="reply.updated_at === reply.created_at;else otherContent">
+              <p>Creado el: {{reply.created_at | date:"dd/LL/y h:mm" }}</p>          
+          </div>
+          
+          <ng-template #otherContent>
+            <p>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</p>
+          </ng-template>
+
           <p>{{reply.content}}</p>
         </li>
       </ul>
@@ -22,7 +42,8 @@
       <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
   
           <label for="content">Respuesta:</label>
-          <textarea name="content" ngModel required cols="30" rows="10"></textarea>
+          <br>
+          <textarea name="content" ngModel required cols="80" rows="10"></textarea>
           <div>
             <button type="submit"> Crear respuesta </button>
           </div>

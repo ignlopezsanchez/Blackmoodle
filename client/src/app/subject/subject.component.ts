@@ -7,6 +7,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { SubjectService } from '../services/subject.service';
 import { SessionService } from '../services/session.service';
 import { DeadlineService } from '../services/deadline.service';
+import { ThreadService } from '../services/thread.service';
 
 @Component({
   selector: 'app-subject',
@@ -31,6 +32,7 @@ export class SubjectComponent implements OnInit {
               private deadlineService: DeadlineService,
               private route: ActivatedRoute,
               public router: Router,
+              private threadsService: ThreadService,
               public session: SessionService) { }
 
   ngOnInit() {
@@ -70,15 +72,32 @@ export class SubjectComponent implements OnInit {
         form.append('name', note.name);
       };  
       
-      this.uploader.uploadAll();                                                //Da problemas porque no recarga luego la pagina.
-      this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
-        this.subject = subject;
-      })
+      this.uploader.uploadAll(); 
+      this.uploader.onCompleteItem = () => {
+        this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
+          this.subject = subject;
+        })
+
+      }                                                
   }
 
   leaveSubject(){
     this.subjectService.leaveSubject(this.idSubject).subscribe(() => {
       this.router.navigate([`/home`])
+    })
+  }
+
+  submitForm(myForm){
+    const newThread ={
+      title: myForm.value.title,
+      content: myForm.value.content
+    }
+    this.threadsService.createThread(this.idSubject, newThread).subscribe(() => {
+      this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
+        this.subject = subject;
+      }) 
+      
+
     })
   }
 }

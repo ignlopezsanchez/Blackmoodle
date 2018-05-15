@@ -13,6 +13,46 @@
     <label> Password </label>
     <input type="password" [(ngModel)]="password" name="password"/>
     <br>
+  
+    <label for="course">Género:</label>
+    <select name="gender" [(ngModel)]="gender">
+      <option >Hombre</option>
+      <option >Mujer</option>
+    </select>
+    <br>
+    <label> Fecha de nacimiento </label>
+    <input type="date" [(ngModel)]="birthDate" name="birthDate"/>
+    <br>
+    <label for="isTeacher"> ¿Eres profesor/a? </label>
+    <input type="checkbox" name="isTeacher" [(ngModel)]="isTeacher">
+    <br>
+
+
+    <h4>Añadir asignaturas:</h4>
+    <label for="degree">Carrera:</label>
+    <select name="degree" [(ngModel)]="degree"  >
+      <option *ngFor="let subject of subjects; let i=index" [value]="subject.degree.name">{{subject.degree.name}}</option>
+    </select>
+    <label for="course">Curso:</label>
+    <select name="course" [(ngModel)]="course" >
+      <option >1</option>
+      <option >2</option>
+      <option >3</option>
+      <option >4</option>
+    </select>
+
+    <label for="subject">Asignatura:</label>
+    <select name="subject" [(ngModel)]="subject"  >
+      <option *ngFor="let subject of subjects | filterSignup: degree, course" [value]="subject.name">{{subject.name}}</option>
+      <!-- <option *ngFor="let subject of subjects" [value]="subject.name">{{subject.name}}</option> -->
+    </select>
+    <br><br>
+  
+
+
+
+    <br>
+    <label for="file">Foto de perfil:</label>
     <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
     <br>
     <div>

@@ -23,7 +23,7 @@ const logInPromise = (user, req) => new Promise((resolve,reject) => {
 
 /* GET home page */
 router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, res, next) => {
-    const {username, email, password, subjects, birthDate, isTeacher} = req.body;
+    const {username, email, password, gender, subjects, birthDate, isTeacher} = req.body;
     console.log(req.body)
         if (req.file){
             photo = req.file.url
@@ -48,6 +48,7 @@ router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, re
           password: hashPass,
           email,
           subjects,
+          gender,
           photo,
           birthDate,
           isTeacher

@@ -4,9 +4,10 @@
       <div>
           <button (click)="leaveSubject()"> Abandonar asignatura</button>
       </div>
+      <br><br>
     <div>
       <ul>
-        <h3>FECHAS LÍMITE</h3>
+        <h3>PRÓXIMAS FECHAS</h3>
   
         <li *ngFor="let deadline of subject.deadlines">
           <h4>{{deadline.name}}</h4>
@@ -59,6 +60,23 @@
         <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
 
       </li>
+
+      <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
+          <h5>Nuevo hilo</h5>
+          <label for="title">Título:</label>
+          <br>
+          <input name="title" type="text" ngModel>
+          <br><br>
+
+          <label for="content">Contenido:</label>
+          <br>
+          <textarea name="content" ngModel required cols="80" rows="10"></textarea>
+          <div>
+            <button type="submit"> Crear Hilo </button>
+          </div>
+        </form>
+
+
     </ul>
   </div>
 

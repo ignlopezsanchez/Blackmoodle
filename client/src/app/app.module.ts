@@ -20,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
 import { CreateSubjectComponent } from './create-subject/create-subject.component';
 import { ThreadsComponent } from './threads/threads.component';
+import { FilterSignupPipe } from './pipes/filterSignup.pipe';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ThreadsComponent } from './threads/threads.component';
     ProfileComponent,
     SubjectComponent,
     CreateSubjectComponent,
-    ThreadsComponent
+    ThreadsComponent,
+    FilterSignupPipe
 ],
   imports: [
     BrowserModule,

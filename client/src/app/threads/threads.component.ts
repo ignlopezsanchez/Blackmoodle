@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThreadService } from '../services/thread.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 
 @Component({
@@ -14,7 +14,12 @@ export class ThreadsComponent implements OnInit {
   idThread: string = "";
   thread: any = {};
 
-  constructor(private threadsService: ThreadService, private route: ActivatedRoute,public session: SessionService) { }
+
+  constructor(private threadsService: ThreadService,
+              private route: ActivatedRoute,
+              public session: SessionService,
+              public router: Router,
+  ) { }
 
   ngOnInit() {
     this.session.isLoggedIn().subscribe(user=>{
@@ -37,9 +42,10 @@ export class ThreadsComponent implements OnInit {
       content: myForm.value.content
     }
     this.threadsService.createReply(this.idSubject, this.idThread, reply).subscribe(thread => {
-      // this.thread = thread;
       this.threadsService.getOneThread(this.idSubject, this.idThread).subscribe(thread => {
         this.thread = thread;
+        myForm.resetForm();
+       
       }) 
 
     })
