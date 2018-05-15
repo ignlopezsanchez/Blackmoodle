@@ -33,9 +33,13 @@ leaveSubject(idSubject) {
     .map(res => res.json())
     .catch(this.handleError);
 }
-
+getAllDegrees() {                                                               
+  return this.http.get(`${environment.BASEURL}/api/subjects/degrees`, this.options)
+    .map(res => res.json())
+    .catch(this.handleError);
+}
 createSubject(subject) {
-  return this.http.post(`${environment.BASEURL}/api/subjects/new`, {subject}, this.options)
+  return this.http.post(`${environment.BASEURL}/api/subjects/new`, subject, this.options)
     .map(res => res.json())
     .catch(this.handleError);
 }

@@ -1,0 +1,32 @@
+<p>
+  create-subject works!
+</p>
+<div class="container">
+  <div *ngIf="user.isAdmin">
+    <h2>CREAR ASIGNATURA</h2>
+    <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
+  
+    <label for="name">Nombre de la nueva asignatura:</label>
+    <input type="text" name="name" ngModel required>
+    <br><br>
+    <label for="course">Curso:</label>
+    <select name="course" ngModel required>
+      <option >1</option>
+      <option >2</option>
+      <option >3</option>
+      <option >4</option>
+    </select>
+    <br><br>
+  
+    <label for="degree">Carrera a la que pertenece:</label>
+    <select name="degree" ngModel required >
+      <option *ngFor="let degree of degrees; let i=index" [value]="degree.name">{{degree.name}}</option>
+    </select>
+    
+    <div>
+      <button type="submit"> Crear asignatura </button>
+    </div>
+  </form>
+  </div>
+</div>
+

@@ -3,6 +3,7 @@ import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { AuthSignupComponent } from './auth-signup/auth-signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
+import { CreateSubjectComponent } from './create-subject/create-subject.component';
 
 
 
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'home', component: ProfileComponent },
   { path: 'subject/:idSubject', component: SubjectComponent },
   { path: 'login',  component: AuthLoginComponent },
-  { path: 'signup', component: AuthSignupComponent}
+  { path: 'signup', component: AuthSignupComponent},
+  { path: 'admin', component: CreateSubjectComponent}
 ];

@@ -12,7 +12,18 @@ const hasSubject = require('../../middlewares/hasSubject');
 const isAdmin = require('../../middlewares/isAdmin');
 const uploadCloud = require("../../config/cloudinary.js");
 
+//RETRIEVE ALL DEGREES
+router.get('/degrees', [ensureLoggedIn(), isAdmin()], (req, res, next) => {  
+  Degree
+    .find({})
+    .then(degrees => {
+      return res.status(200).json(degrees);
+    })
+    .catch(err =>{
+      if (err)     { return res.status(500).json(err); }
 
+    })
+});
 
 //RETRIEVE ALL SUBJECTS. QUITO EL INSURELOGGEDIN PORQUE ES LLAMADA EN EL PROCESO DE REGISTRO DEL USUARIO.
 router.get('/', (req, res, next) => {  
@@ -28,7 +39,27 @@ router.get('/', (req, res, next) => {
 
     })
 });
+//CREATE ONE SUBJECT
+router.post('/new', [ensureLoggedIn(), isAdmin()], (req, res, next) => { 
 
+Degree.findOne({ 'name': req.body.degree }).then(degree => {
+  let idDegree = degree.id;
+  const newSubject = new Subject({
+    name: req.body.name,
+    degree: idDegree,
+    course: req.body.course,
+    notes: [],
+    teacher: [],
+    threads: [],
+    deadlines: [], 
+  });
+  newSubject.save().then((subject) => {
+    return res.status(200).json(subject);
+  })
+})
+  
+  
+});
 
 //RETRIEVE ONE SUBJECT PROFILE
 router.get('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => {  
@@ -61,24 +92,7 @@ router.get('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => 
 });
 
 
-//CREATE ONE SUBJECT
-router.post('/new', [ensureLoggedIn(), isAdmin()], (req, res, next) => { 
 
-  const newSubject = new Subject({
-    name: req.body.name,
-    degree: req.body.degree,
-    course: req.body.course,
-    notes: [],
-    teacher: [],
-    threads: [],
-    deadlines: [], 
-  });
-
-  newSubject.save().then((subject) => {
-    return res.status(200).json(subject);
-  })
-  
-});
 
 //LEAVE ONE SUBJECT
 router.post('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => { 

@@ -52,13 +52,16 @@ router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, re
           birthDate,
           isTeacher
         });
-    
-        return theUser.save().then( user => {
+        if (theUser.isTeacher) { return theUser.save().then( user => {
             return Promise.all( user.subjects.map(e => {
                 Subject.findByIdAndUpdate(e.toString(), {$push: { teacher: user._id}} , {new:true}).then()
             })).then(() => logInPromise(user,req))
             
-        });
+        })}
+        else {
+            theUser.save().then(user => {
+                logInPromise(user,req)})
+        }
     })
     .then(user => res.status(200).json(user))
     .catch(e => res.status(500).json({message:e.message}));

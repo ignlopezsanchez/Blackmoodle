@@ -18,6 +18,7 @@ import { NoteService } from './services/note.service';
 import { SubjectService } from './services/subject.service';
 import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
+import { CreateSubjectComponent } from './create-subject/create-subject.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SubjectComponent } from './subject/subject.component';
     AuthSignupComponent,
     FileSelectDirective,
     ProfileComponent,
-    SubjectComponent
+    SubjectComponent,
+    CreateSubjectComponent
 ],
   imports: [
     BrowserModule,
