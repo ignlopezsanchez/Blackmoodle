@@ -13,7 +13,8 @@ export class ThreadsComponent implements OnInit {
   idSubject: string = "";
   idThread: string = "";
   thread: any = {};
-
+  newReply: string;
+  isHidden: boolean = false;
 
   constructor(private threadsService: ThreadService,
               private route: ActivatedRoute,
@@ -51,4 +52,12 @@ export class ThreadsComponent implements OnInit {
     })
   }
 
+  editReply(idReplay){
+    this.isHidden = !this.isHidden;
+    console.log(idReplay);
+    let update ={
+      content: this.newReply
+    }
+    this.threadsService.editeReplay(idReplay, update).subscribe()
+  }
 }

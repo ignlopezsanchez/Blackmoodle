@@ -34,7 +34,12 @@
           <p>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</p>
         </ng-template>
 
-        <p>{{reply.content}}</p>
+        <p [hidden]="isHidden">{{reply.content}}</p>
+        
+        <div *ngIf="user._id === reply._author._id">
+            <textarea name="newReply" id="newReply" cols="30" rows="10" [hidden]="!isHidden">{{reply.content}}</textarea>
+          <button (click)="editReply(reply._id)">Editar</button>
+        </div>
       </li>
     </ul>
 
