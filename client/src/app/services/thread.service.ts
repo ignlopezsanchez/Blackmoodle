@@ -40,7 +40,7 @@ export class ThreadService {
       .catch(this.handleError);
   }
 
-  editeReplay(idReplay, update) {
+  editReplay(idReplay, update) {
     return this.http.put(`${environment.BASEURL}/api/threads/replies/${idReplay}`, update, this.options)
       .map(res => res.json())
       .catch(this.handleError);

@@ -109,8 +109,9 @@ router.post('/:idSubject/:idThread/reply', [ensureLoggedIn(),hasSubject()], (req
 })  
 });
 
-//EDITE REPLY
-router.put('/replies/:idReply', [ensureLoggedIn(), replyAuthor()], (req, res, next) => {    
+//EDIT REPLY
+router.put('/replies/:idReply', [ensureLoggedIn(), replyAuthor()], (req, res, next) => { 
+  console.log(req.body)   
   let idReply = req.params.idReply;
   const update = {
     _author: req.user._id,

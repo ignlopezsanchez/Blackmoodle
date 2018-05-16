@@ -14,7 +14,10 @@ export class ThreadsComponent implements OnInit {
   idThread: string = "";
   thread: any = {};
   newReply: string;
+  newPost: string;
+  newTitle: string;
   isHidden: boolean = false;
+  isThreadHidden: boolean = false;
 
   constructor(private threadsService: ThreadService,
               private route: ActivatedRoute,
@@ -51,13 +54,41 @@ export class ThreadsComponent implements OnInit {
 
     })
   }
+  openEditThread(){
+    this.isThreadHidden = !this.isThreadHidden;
+ 
+  }
+
+  editThread(idThread){
+    this.isThreadHidden = !this.isThreadHidden;
+    console.log(idThread);
+    let update ={
+      title: this.newTitle,
+      content: this.newPost
+    };
+    console.log(update)
+    this.threadsService.editeThread(idThread, update).subscribe(() => {
+      this.threadsService.getOneThread(this.idSubject, this.idThread).subscribe(thread => {
+        this.thread = thread;       
+      }) 
+    })
+  }
+  openEditReply(){
+    this.isHidden = !this.isHidden;
+ 
+  }
 
   editReply(idReplay){
     this.isHidden = !this.isHidden;
     console.log(idReplay);
     let update ={
       content: this.newReply
-    }
-    this.threadsService.editeReplay(idReplay, update).subscribe()
+    };
+    console.log(update)
+    this.threadsService.editReplay(idReplay, update).subscribe(() => {
+      this.threadsService.getOneThread(this.idSubject, this.idThread).subscribe(thread => {
+        this.thread = thread;       
+      }) 
+    })
   }
 }

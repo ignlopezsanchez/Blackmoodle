@@ -20,6 +20,21 @@
       </ng-template>
 
       <p>{{thread.content}}</p>
+
+      <div *ngIf="user._id === thread._author._id">
+
+          <p [hidden]="!isThreadHidden">Nuevo Título:</p>
+          <input type="text" name="newTitle" id="newTitle" [hidden]="!isThreadHidden" [(ngModel)]="newTitle">
+
+          <p [hidden]="!isThreadHidden">Nuevo mensaje:</p>
+          <textarea name="newPost" id="newPost" cols="60" rows="3" [hidden]="!isThreadHidden" [(ngModel)]="newPost"></textarea>
+          <br>
+        <button (click)="openEditThread()">Editar</button>
+        <button [hidden]="!isThreadHidden" (click)="editThread(thread._id)">Guardar</button>
+      </div>
+
+
+
     </div>
 
     <ul>
@@ -33,12 +48,15 @@
         <ng-template #otherContent>
           <p>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</p>
         </ng-template>
-
-        <p [hidden]="isHidden">{{reply.content}}</p>
+        <p [hidden]="!isHidden">Mensaje original:</p>
+        <p >{{reply.content}}</p>
         
         <div *ngIf="user._id === reply._author._id">
-            <textarea name="newReply" id="newReply" cols="30" rows="10" [hidden]="!isHidden">{{reply.content}}</textarea>
-          <button (click)="editReply(reply._id)">Editar</button>
+            <p [hidden]="!isHidden">Nuevo mensaje:</p>
+            <textarea name="newReply" id="newReply" cols="60" rows="3" [hidden]="!isHidden" [(ngModel)]="newReply"></textarea>
+            <br>
+          <button (click)="openEditReply()">Editar</button>
+          <button [hidden]="!isHidden" (click)="editReply(reply._id)">Guardar</button>
         </div>
       </li>
     </ul>
