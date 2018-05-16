@@ -31,7 +31,7 @@
     <h4>Añadir asignaturas:</h4>
     <label for="degree">Carrera:</label>
     <select name="degree" [(ngModel)]="degree"  >
-      <option *ngFor="let subject of subjects; let i=index" [value]="subject.degree.name">{{subject.degree.name}}</option>
+      <option *ngFor="let degree of degrees" [value]="degree.name">{{degree.name}}</option>
     </select>
     <label for="course">Curso:</label>
     <select name="course" [(ngModel)]="course" >
@@ -43,8 +43,7 @@
 
     <label for="subject">Asignatura:</label>
     <select name="subject" [(ngModel)]="idSubject"  >
-      <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}} 
-      </option>
+      <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}}</option>
     </select>
     <button (click)="addSubject()"> Añadir asignatura </button>
 

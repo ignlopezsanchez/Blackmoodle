@@ -23,8 +23,18 @@ const logInPromise = (user, req) => new Promise((resolve,reject) => {
 
 /* GET home page */
 router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, res, next) => {
-    const {username, email, password, gender, subjects, birthDate, isTeacher} = req.body;
-    console.log(req.body)
+    const {username, email, password, gender, birthDate, isTeacher} = req.body;
+    let {subjectsToParse} = req.body;
+    let finalSubjects = [];
+    if (subjectsToParse.indexOf(",") === -1){
+        finalSubjects = [subjectsToParse]
+    }
+    else {
+        finalSubjects = subjectsToParse.split(",")
+    }
+    console.log(finalSubjects)
+
+    
         if (req.file){
             photo = req.file.url
         }
@@ -47,12 +57,13 @@ router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, re
           username,
           password: hashPass,
           email,
-          subjects,
+          subjects: finalSubjects,
           gender,
           photo,
           birthDate,
           isTeacher
         });
+        console.log(theUser)
         if (theUser.isTeacher) { return theUser.save().then( user => {
             return Promise.all( user.subjects.map(e => {
                 Subject.findByIdAndUpdate(e.toString(), {$push: { teacher: user._id}} , {new:true}).then()

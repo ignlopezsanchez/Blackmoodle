@@ -13,7 +13,7 @@ const isAdmin = require('../../middlewares/isAdmin');
 const uploadCloud = require("../../config/cloudinary.js");
 
 //RETRIEVE ALL DEGREES
-router.get('/degrees', [ensureLoggedIn(), isAdmin()], (req, res, next) => {  
+router.get('/degrees', (req, res, next) => {  
   Degree
     .find({})
     .then(degrees => {

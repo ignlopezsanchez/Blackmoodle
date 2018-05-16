@@ -29,6 +29,7 @@ export class AuthSignupComponent implements OnInit {
   course: number;
   idSubject: any;
   subjectsToJoin: any = [];
+  degrees: any = {};
 
   constructor(private service: SessionService,
               public router: Router,
@@ -37,8 +38,14 @@ export class AuthSignupComponent implements OnInit {
   ngOnInit() {
     this.subjectService.getAllSubjects().subscribe(subjects => {
       this.subjects = subjects;
-
+      this.subjectService.getAllDegrees().subscribe(degrees => {
+        this.degrees = degrees;
     })
+    })
+        
+
+    
+    
     // this.uploader.onSuccessItem = (item, response) => {
     //   this.feedback = JSON.parse(response).message;
     // };
@@ -49,13 +56,11 @@ export class AuthSignupComponent implements OnInit {
   }
 
   addSubject(){
-    console.log(typeof this.idSubject);
-    console.log(typeof this.idSubject.toString())
-
-    
-    this.subjectsToJoin.push(this.idSubject)
-    console.log(typeof this.subjectsToJoin[0]);
-
+    function uniq(a) {
+      return Array.from(new Set(a));                          //remove duplicates
+   }
+    this.subjectsToJoin.push(this.idSubject);
+    this.subjectsToJoin = uniq(this.subjectsToJoin);
   }
 
   signup() {
@@ -68,19 +73,20 @@ export class AuthSignupComponent implements OnInit {
       birthDate: this.birthDate,
       isTeacher: this.isTeacher   
     };
-    console.log(user)
         this.uploader.onBuildItemForm = (item, form) => {
           form.append('username', this.username);
           form.append('email', this.email);
           form.append('password', this.password);
           form.append('gender', this.gender);
           form.append('birthDate', this.birthDate);
-          form.append('subjects', this.subjectsToJoin);
+          form.append('subjectsToParse', this.subjectsToJoin);
           form.append('isTeacher', this.isTeacher);
         };
     
         this.uploader.uploadAll();
         this.uploader.onCompleteItem = () => {
+
+          console.log(this.subjectsToJoin);
 
           this.router.navigate(['profile'])
         }     

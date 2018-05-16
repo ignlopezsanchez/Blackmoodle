@@ -33,7 +33,8 @@ import { FilterSignupPipe } from './pipes/filterSignup.pipe';
     SubjectComponent,
     CreateSubjectComponent,
     ThreadsComponent,
-    FilterSignupPipe
+    FilterSignupPipe,
+    
 ],
   imports: [
     BrowserModule,
