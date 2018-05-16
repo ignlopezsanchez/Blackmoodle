@@ -41,7 +41,7 @@ router.post('/:idSubject/new', [ensureLoggedIn(),hasSubject()], (req, res, next)
 });
 
 //RETRIEVE ONE THREAD
-router.get('/:idSubject/:idThread', [ensureLoggedIn()], (req, res, next) => {  
+router.get('/:idSubject/:idThread', [ensureLoggedIn(), isInCommonSubject()], (req, res, next) => {  
   let idThread = req.params.idThread;
   Thread
     .findById(idThread)
