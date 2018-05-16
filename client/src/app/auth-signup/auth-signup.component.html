@@ -1,7 +1,7 @@
 <p>
   auth-signup works!
 </p>
-  <div>
+  <div class="container">
     <!-- <form> -->
       <h2> Signup </h2>
       <label> Username </label>
@@ -32,14 +32,19 @@
       
       <ul>
         Asignaturas añadidas:
-        <li *ngFor="let asign of subjectsToShow">
+        <li *ngFor="let asign of subjectsToShow; let i = index">
           {{asign}}
+          <button (click)="removeSubject(i)"> Quitar asignatura </button>
+
         </li>
       </ul>
       <label for="degree">Carrera:</label>
+      
       <select name="degree" [(ngModel)]="degree"  >
-        <option *ngFor="let degree of degrees" [value]="degree.name">{{degree.name}}</option>
-      </select>
+       
+          <option *ngFor="let degree of degrees" [value]="degree.name">{{degree.name}}</option>
+        
+        </select>
       <label for="course">Curso:</label>
       <select name="course" [(ngModel)]="course" >
         <option >1</option>
@@ -49,9 +54,9 @@
       </select>
   
       <label for="subject">Asignatura:</label>
-      <select name="subject" [(ngModel)]="idSubject"  >
-        <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}}</option>
-      </select>
+        <select name="subject" [(ngModel)]="idSubject"  >
+          <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}}</option>
+        </select>
       <button (click)="addSubject()"> Añadir asignatura </button>
   
       <br><br>

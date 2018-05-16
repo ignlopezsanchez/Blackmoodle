@@ -51,9 +51,10 @@ export class AuthSignupComponent implements OnInit {
     function uniq(a) {
       return Array.from(new Set(a));                          //remove duplicates
    }
-    this.subjectsToJoin.push(this.idSubject);
+   if (this.idSubject != undefined)
+    {this.subjectsToJoin.push(this.idSubject);
     this.subjectsToJoin = uniq(this.subjectsToJoin);
-    
+    }
     this.subjectsToShow = this.subjectsToJoin.map(e => {
       for (let i = 0; i < this.subjects.length; i++) {
         if (e === this.subjects[i]._id){
@@ -61,6 +62,16 @@ export class AuthSignupComponent implements OnInit {
       }
     
     }})
+  }
+
+  removeSubject(i){
+    console.log(i)
+    this.subjectsToJoin.splice(i, 1);
+    
+
+
+    
+    this.subjectsToShow.splice(i,1);
   }
 
   signup() {
