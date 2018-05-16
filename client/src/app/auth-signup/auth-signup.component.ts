@@ -29,6 +29,7 @@ export class AuthSignupComponent implements OnInit {
   course: number;
   idSubject: any;
   subjectsToJoin: any = [];
+  subjectsToShow: any = [];
   degrees: any = {};
 
   constructor(private service: SessionService,
@@ -61,6 +62,15 @@ export class AuthSignupComponent implements OnInit {
    }
     this.subjectsToJoin.push(this.idSubject);
     this.subjectsToJoin = uniq(this.subjectsToJoin);
+
+    this.subjectsToShow = this.subjectsToJoin.map(e => {
+      for (let i = 0; i < this.subjects.length - 1; i++) {
+        if (e === this.subjects[i]._id){
+          return this.subjects[i].name
+      }
+    
+    }})
+    console.log(this.subjectsToShow)
   }
 
   signup() {

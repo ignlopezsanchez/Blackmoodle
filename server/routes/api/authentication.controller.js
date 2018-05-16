@@ -71,7 +71,7 @@ router.post('/signup', [uploadCloud.single("file"), ensureLoggedOut()], (req, re
             
         })}
         else {
-            theUser.save().then(user => {
+            return theUser.save().then(user => {
                 logInPromise(user,req)})
         }
     })
