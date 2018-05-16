@@ -31,29 +31,20 @@ export class AuthSignupComponent implements OnInit {
   subjectsToJoin: any = [];
   subjectsToShow: any = [];
   degrees: any = {};
+  user: any = {}
 
   constructor(private service: SessionService,
               public router: Router,
               private subjectService: SubjectService) { }
 
   ngOnInit() {
-    this.subjectService.getAllSubjects().subscribe(subjects => {
-      this.subjects = subjects;
-      this.subjectService.getAllDegrees().subscribe(degrees => {
-        this.degrees = degrees;
-    })
-    })
-        
-
-    
-    
-    // this.uploader.onSuccessItem = (item, response) => {
-    //   this.feedback = JSON.parse(response).message;
-    // };
-
-    // this.uploader.onErrorItem = (item, response, status, headers) => {
-    //   this.feedback = JSON.parse(response).message;
-    // };
+      this.subjectService.getAllSubjects().subscribe(subjects => {
+        this.subjects = subjects;
+        this.subjectService.getAllDegrees().subscribe(degrees => {
+          this.degrees = degrees;
+      })
+      })
+  
   }
 
   addSubject(){
@@ -62,15 +53,14 @@ export class AuthSignupComponent implements OnInit {
    }
     this.subjectsToJoin.push(this.idSubject);
     this.subjectsToJoin = uniq(this.subjectsToJoin);
-
+    
     this.subjectsToShow = this.subjectsToJoin.map(e => {
-      for (let i = 0; i < this.subjects.length - 1; i++) {
+      for (let i = 0; i < this.subjects.length; i++) {
         if (e === this.subjects[i]._id){
           return this.subjects[i].name
       }
     
     }})
-    console.log(this.subjectsToShow)
   }
 
   signup() {

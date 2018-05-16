@@ -1,67 +1,73 @@
 <p>
   auth-signup works!
 </p>
-<div>
-  <!-- <form> -->
-    <h2> Signup </h2>
-    <label> Username </label>
-    <input type="text" [(ngModel)]="username" name="username"/>
-    <br>
-    <label> Email </label>
-    <input type="mail" [(ngModel)]="email" name="email"/>
-    <br>
-    <label> Password </label>
-    <input type="password" [(ngModel)]="password" name="password"/>
-    <br>
-  
-    <label for="course">Género:</label>
-    <select name="gender" [(ngModel)]="gender">
-      <option >Hombre</option>
-      <option >Mujer</option>
-    </select>
-    <br>
-    <label> Fecha de nacimiento </label>
-    <input type="date" [(ngModel)]="birthDate" name="birthDate"/>
-    <br>
-    <label for="isTeacher"> ¿Eres profesor/a? </label>
-    <input type="checkbox" name="isTeacher" [(ngModel)]="isTeacher">
-    <br>
-
-
-    <h4>Añadir asignaturas:</h4>
+  <div>
+    <!-- <form> -->
+      <h2> Signup </h2>
+      <label> Username </label>
+      <input type="text" [(ngModel)]="username" name="username"/>
+      <br>
+      <label> Email </label>
+      <input type="mail" [(ngModel)]="email" name="email"/>
+      <br>
+      <label> Password </label>
+      <input type="password" [(ngModel)]="password" name="password"/>
+      <br>
     
-    <label for="degree">Carrera:</label>
-    <select name="degree" [(ngModel)]="degree"  >
-      <option *ngFor="let degree of degrees" [value]="degree.name">{{degree.name}}</option>
-    </select>
-    <label for="course">Curso:</label>
-    <select name="course" [(ngModel)]="course" >
-      <option >1</option>
-      <option >2</option>
-      <option >3</option>
-      <option >4</option>
-    </select>
-
-    <label for="subject">Asignatura:</label>
-    <select name="subject" [(ngModel)]="idSubject"  >
-      <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}}</option>
-    </select>
-    <button (click)="addSubject()"> Añadir asignatura </button>
-
-    <br><br>
+      <label for="course">Género:</label>
+      <select name="gender" [(ngModel)]="gender">
+        <option >Hombre</option>
+        <option >Mujer</option>
+      </select>
+      <br>
+      <label> Fecha de nacimiento </label>
+      <input type="date" [(ngModel)]="birthDate" name="birthDate"/>
+      <br>
+      <label for="isTeacher"> ¿Eres profesor/a? </label>
+      <input type="checkbox" name="isTeacher" [(ngModel)]="isTeacher">
+      <br>
   
-
-
-
-    <br>
-    <label for="file">Foto de perfil:</label>
-    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-    <br>
-    <div>
-      <button (click)="signup()"> Signup </button>
-    </div>
+  
+      <h4>Añadir asignaturas:</h4>
+      
+      <ul>
+        Asignaturas añadidas:
+        <li *ngFor="let asign of subjectsToShow">
+          {{asign}}
+        </li>
+      </ul>
+      <label for="degree">Carrera:</label>
+      <select name="degree" [(ngModel)]="degree"  >
+        <option *ngFor="let degree of degrees" [value]="degree.name">{{degree.name}}</option>
+      </select>
+      <label for="course">Curso:</label>
+      <select name="course" [(ngModel)]="course" >
+        <option >1</option>
+        <option >2</option>
+        <option >3</option>
+        <option >4</option>
+      </select>
+  
+      <label for="subject">Asignatura:</label>
+      <select name="subject" [(ngModel)]="idSubject"  >
+        <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}}</option>
+      </select>
+      <button (click)="addSubject()"> Añadir asignatura </button>
+  
+      <br><br>
     
-  <!-- </form> -->
   
-</div> 
-<p>{{feedback}}</p>
+  
+  
+      <br>
+      <label for="file">Foto de perfil:</label>
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <br>
+      <div>
+        <button (click)="signup()"> Signup </button>
+      </div>
+      
+    <!-- </form> -->
+    
+  </div> 
+  <p>{{feedback}}</p>

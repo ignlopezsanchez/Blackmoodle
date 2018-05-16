@@ -95,6 +95,7 @@ export class SubjectComponent implements OnInit {
     this.threadsService.createThread(this.idSubject, newThread).subscribe(() => {
       this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
         this.subject = subject;
+        myForm.resetForm();
       }) 
       
 
