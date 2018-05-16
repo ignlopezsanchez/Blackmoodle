@@ -1,34 +1,9 @@
-<p>
-  auth-signup works!
-</p>
+
   <div class="container">
-    <!-- <form> -->
-      <h2> Signup </h2>
-      <label> Username </label>
-      <input type="text" [(ngModel)]="username" name="username"/>
-      <br>
-      <label> Email </label>
-      <input type="mail" [(ngModel)]="email" name="email"/>
-      <br>
-      <label> Password </label>
-      <input type="password" [(ngModel)]="password" name="password"/>
-      <br>
+      
     
-      <label for="course">Género:</label>
-      <select name="gender" [(ngModel)]="gender">
-        <option >Hombre</option>
-        <option >Mujer</option>
-      </select>
-      <br>
-      <label> Fecha de nacimiento </label>
-      <input type="date" [(ngModel)]="birthDate" name="birthDate"/>
-      <br>
-      <label for="isTeacher"> ¿Eres profesor/a? </label>
-      <input type="checkbox" name="isTeacher" [(ngModel)]="isTeacher">
-      <br>
-  
-  
-      <h4>Añadir asignaturas:</h4>
+    <div>
+        <h4>Añadir asignaturas:</h4>
       
       <ul>
         Asignaturas añadidas:
@@ -58,21 +33,45 @@
           <option *ngFor="let subject of subjects | filterSignup: degree: course" [value]="subject._id">{{subject.name}}</option>
         </select>
       <button (click)="addSubject()"> Añadir asignatura </button>
-  
-      <br><br>
+
+    </div>
     
-  
-  
-  
-      <br>
-      <label for="file">Foto de perfil:</label>
-      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-      <br>
-      <div>
-        <button (click)="signup()"> Signup </button>
-      </div>
+    
+    <div>
+      <form (ngSubmit)="signup(myForm)" #myForm="ngForm" ngNativeValidate>
+            <h2> Signup </h2>
+        <label> Username </label>
+        <input type="text" ngModel name="username" required/>
+        <br>
+        <label> Email </label>
+        <input type="mail" ngModel name="email" required/>
+        <br>
+        <label> Password </label>
+        <input type="password" ngModel name="password" required/>
+        <br>
       
-    <!-- </form> -->
+        <label for="course">Género:</label>
+        <select name="gender" ngModel required>
+          <option >Hombre</option>
+          <option >Mujer</option>
+        </select>
+        <br>
+        <label> Fecha de nacimiento </label>
+        <input type="date" ngModel name="birthDate" required/>
+        <br>
+        <label for="isTeacher"> ¿Eres profesor/a? </label>
+        <input type="checkbox" name="isTeacher" ngModel>
+   
+        <br><br>
+        <label for="file">Foto de perfil:</label>
+        <input type="file" name="file" ng2FileSelect [uploader]="uploader" required />
+        <br>
+        <div>
+          <button type="submit">Sign up</button>
+        </div>
+        
+      </form>
+    </div>
     
   </div> 
   <p>{{feedback}}</p>

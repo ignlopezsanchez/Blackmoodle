@@ -27,7 +27,7 @@ export class AuthSignupComponent implements OnInit {
   feedback: string;
   degree: string;
   course: number;
-  idSubject: any;
+  idSubject: any = "";
   subjectsToJoin: any = [];
   subjectsToShow: any = [];
   degrees: any = {};
@@ -48,6 +48,8 @@ export class AuthSignupComponent implements OnInit {
   }
 
   addSubject(){
+    console.log("this.idSubject")
+    console.log(this.idSubject)
     function uniq(a) {
       return Array.from(new Set(a));                          //remove duplicates
    }
@@ -62,36 +64,34 @@ export class AuthSignupComponent implements OnInit {
       }
     
     }})
+    console.log(this.subjectsToJoin);
+    console.log(this.subjectsToShow);
   }
 
   removeSubject(i){
     console.log(i)
     this.subjectsToJoin.splice(i, 1);
-    
-
-
-    
     this.subjectsToShow.splice(i,1);
   }
 
-  signup() {
+  signup(myForm) {
     const user = {
-      username: this.username,
-      password: this.password,
-      email: this.email,
-      gender: this.gender,
+      username: myForm.value.username,
+      password: myForm.value.password,
+      email: myForm.value.email,
+      gender: myForm.value.gender,
       subjects: this.subjectsToJoin,
-      birthDate: this.birthDate,
-      isTeacher: this.isTeacher   
+      birthDate: myForm.value.birthDate,
+      isTeacher: myForm.value.isTeacher   
     };
         this.uploader.onBuildItemForm = (item, form) => {
-          form.append('username', this.username);
-          form.append('email', this.email);
-          form.append('password', this.password);
-          form.append('gender', this.gender);
-          form.append('birthDate', this.birthDate);
+          form.append('username', myForm.value.username);
+          form.append('email', myForm.value.email);
+          form.append('password', myForm.value.password);
+          form.append('gender', myForm.value.gender);
+          form.append('birthDate', myForm.value.birthDate);
           form.append('subjectsToParse', this.subjectsToJoin);
-          form.append('isTeacher', this.isTeacher);
+          form.append('isTeacher', myForm.value.isTeacher);
         };
     
         this.uploader.uploadAll();

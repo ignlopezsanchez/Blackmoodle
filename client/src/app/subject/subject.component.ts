@@ -83,7 +83,7 @@ export class SubjectComponent implements OnInit {
 
   leaveSubject(){
     this.subjectService.leaveSubject(this.idSubject).subscribe(() => {
-      this.router.navigate([`/home`])
+      this.router.navigate([`/profile`])
     })
   }
 

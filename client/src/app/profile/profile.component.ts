@@ -18,9 +18,6 @@ export class ProfileComponent implements OnInit {
     this.service.getProfile()
     .subscribe((profile) =>{
       this.profile = profile;
-      console.log(this.profile)
-
-
     });
   }
 
