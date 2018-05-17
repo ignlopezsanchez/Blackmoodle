@@ -1,98 +1,154 @@
-
 <div class="container wrapper">
   <div *ngIf="user">
     <h1>{{subject.name}}</h1>
-      <div>
-          <button (click)="leaveSubject()"> Abandonar asignatura</button>
-      </div>
-      <br><br>
-    <div class="row">
-      <div class="col-sm-5">
-        <div>
-          <ul>
-            <h3>PRÓXIMAS FECHAS</h3>
-      
-            <li *ngFor="let deadline of subject.deadlines">
-              <h4>{{deadline.name}}</h4>
-              <p>{{deadline.date | date:"dd/LL/y"}}</p>
-              <div *ngIf="user.isTeacher" >
-              <button (click)="deleteDeadline(deadline._id)">Borrar Deadline</button>
-            </div>
-            </li>
-          </ul>
-          
-          <div *ngIf="user.isTeacher" >
-            <label for="">Nombre:</label>
-            <input type="text" [(ngModel)]="name" name="name">
-            <br><br>
-            <label for="">Fecha:</label>
-            <input id="date" type="date" [(ngModel)]="date" name="date">
-            <button (click)="createDeadline()"> Subir </button>
-          </div>
-      
-      
-        </div>
-      
-    
-      <div>
-          <ul>
-            <h3>APUNTES</h3>
-      
-            <li *ngFor="let note of subject.notes">
-              <a target="_blank" href="{{note.url}}"><p>{{note.name}}</p></a>
-              <div *ngIf="user.isTeacher || user._id === note._author._id">
-                <button (click)="deleteNote(note._id)">Borrar archivo</button>
-              </div>
-    
-            </li>
-            
-                <input type="text" [(ngModel)]="apuntes.name" name="name"/>
-                <br>
-                <input type="file" [(ngModel)]="fileName" name="file" ng2FileSelect [uploader]="uploader" />
-                <br>
-                <button (click)="uploadNote()"> Subir </button>
-      
-          </ul>
-      
-      
-      
-        </div>
+    <div>
+      <button class="btn btn-primary" (click)="leaveSubject()"> Abandonar asignatura</button>
+    </div>
+    <br>
+    <br>
+
+<div class="accordion" id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            DEADLINES
+          </button>
+        </h5>
       </div>
   
-  
-    <div class="col-sm-7">
-      <ul>
-        <h3>FORO</h3>
-        <div class="scroll">
-          <li *ngFor="let thread of subject.threads">
-            <a [routerLink]="['/threads', subject._id, thread._id]"><h4>{{thread.title}}</h4></a>
-            <p>{{thread._author.username}}</p>
-            <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
-    
-          </li>
-    
-          <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
-              <h5>Nuevo hilo</h5>
-              <label for="title">Título:</label>
-              <br>
-              <input name="title" type="text" ngModel>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+            <div>
+                <ul>
+
+                  <li *ngFor="let deadline of subject.deadlines">
+                    <h5>{{deadline.name}}</h5>
+                    <h5>{{deadline.date | date:"dd/LL/y"}}</h5>
+                    <div *ngIf="user.isTeacher">
+                      <button class="btn btn-primary" (click)="deleteDeadline(deadline._id)">Borrar Deadline</button>
+                    </div>
+                  </li>
+                </ul>
+
+                <div *ngIf="user.isTeacher">
+                  <div class="form-group">
+                    <label for="">Nombre:</label>
+                    <input class="form-control" type="text" [(ngModel)]="name" name="name">
+                  </div>
+                
+                  
+                  <div class="form-group">
+                    <label for="">Fecha:</label>
+                    <input class="form-control" id="date" type="date" [(ngModel)]="date" name="date">
+                  </div>
+                  <button class="btn btn-primary" (click)="createDeadline()"> Subir </button>
+                </div>
+
+
+              </div>        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            APUNTES
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+            <div>
+                <ul>
+
+                  <li *ngFor="let note of subject.notes">
+                    <a target="_blank" href="{{note.url}}">
+                      <h5>{{note.name}}</h5>
+                    </a>
+                    <div *ngIf="user.isTeacher || user._id === note._author._id">
+                      <button class="btn btn-primary" (click)="deleteNote(note._id)">Borrar archivo</button>
+                    </div>
+                    <br>
+                  </li>
+                    <br>
+                    <h4>SUBIR APUNTES</h4>
+                  <div class="form-group">
+                    <input class="form-control" type="text" [(ngModel)]="apuntes.name" name="name" />
+                  </div>
+                  
+                  <div class="form-group">
+                    <input class="form-control-file" type="file" [(ngModel)]="fileName" name="file" ng2FileSelect [uploader]="uploader" />
+                  </div>
+                  
+                  <button class="btn btn-primary" (click)="uploadNote()"> Subir </button>
+
+                </ul>
+
+
+
+              </div>        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            FORO
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+            <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
+                <h5>Nuevo hilo</h5>
+                <div class="form-group">
+                  <label for="title">Título:</label>
+                  <br>
+                  <input class="form-control" name="title" type="text" ngModel>
+                </div>
+                <br>
+                <br>
+
+                <div class="form-group">
+                  <label for="content">Contenido:</label>
+                  <br>
+                  <textarea class="form-control" name="content" ngModel required cols="80" rows="10"></textarea>
+                </div>
+                <div>
+                  <button class="btn btn-primary" type="submit"> Crear Hilo </button>
+                </div>
+              </form>
               <br><br>
-    
-              <label for="content">Contenido:</label>
+              <h3>HILOS ACTUALES</h3>
               <br>
-              <textarea name="content" ngModel required cols="80" rows="10"></textarea>
-              <div>
-                <button type="submit"> Crear Hilo </button>
-              </div>
-            </form>
-    
-        </div>
-  
-      </ul>
-    </div>
-    </div>
+          <ul>
+            <div class="scroll">
+              <li *ngFor="let thread of subject.threads">
+                <div class="threads justify-content-center">
+                  <a [routerLink]="['/threads', subject._id, thread._id]">
+                    <h4>{{thread.title}}</h4>
+                  </a>
+                  <p>{{thread._author.username}}</p>
+                  <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
+                </div>
 
+              </li>
 
+              
+
+            </div>
+
+          </ul>        </div>
+      </div>
+    </div>
   </div>
 
+
+
+
+
 </div>
+
+</div>
+

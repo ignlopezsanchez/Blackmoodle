@@ -10,6 +10,7 @@ const Deadline = require('../models/Deadline');
 const Note = require('../models/Note');
 
 const DBURL = process.env.MONGODB_URL;
+// const DBURL = "mongodb://blackmoodle:blackmoodle90++++@ds245238.mlab.com:45238/blackmoodle";
 
 mongoose
   .connect(DBURL)

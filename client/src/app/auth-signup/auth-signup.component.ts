@@ -48,8 +48,6 @@ export class AuthSignupComponent implements OnInit {
   }
 
   addSubject(){
-    console.log("this.idSubject")
-    console.log(this.idSubject)
     function uniq(a) {
       return Array.from(new Set(a));                          //remove duplicates
    }
@@ -61,15 +59,12 @@ export class AuthSignupComponent implements OnInit {
       for (let i = 0; i < this.subjects.length; i++) {
         if (e === this.subjects[i]._id){
           return this.subjects[i].name
-      }
-    
+      } 
     }})
-    console.log(this.subjectsToJoin);
-    console.log(this.subjectsToShow);
+  
   }
 
   removeSubject(i){
-    console.log(i)
     this.subjectsToJoin.splice(i, 1);
     this.subjectsToShow.splice(i,1);
   }
@@ -96,15 +91,8 @@ export class AuthSignupComponent implements OnInit {
     
         this.uploader.uploadAll();
         this.uploader.onCompleteItem = () => {
-
-          console.log(this.subjectsToJoin);
-
           this.router.navigate(['profile'])
-        }     
-        
-        
-     
+        }         
   }
-  
 
 }

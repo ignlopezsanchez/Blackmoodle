@@ -27,7 +27,9 @@
           <input type="text" name="newTitle" id="newTitle" [hidden]="!isThreadHidden" [(ngModel)]="newTitle">
 
           <p [hidden]="!isThreadHidden">Nuevo mensaje:</p>
-          <textarea name="newPost" id="newPost" cols="60" rows="3" [hidden]="!isThreadHidden" [(ngModel)]="newPost"></textarea>
+          <div class="form-group">
+            <textarea class="form-control" name="newPost" id="newPost" cols="60" rows="3" [hidden]="!isThreadHidden" [(ngModel)]="newPost"></textarea>
+          </div>
           <br>
         <button [hidden]="isThreadHidden" (click)="openEditThread()">Editar</button>
         <button [hidden]="!isThreadHidden" (click)="editThread(thread._id)">Guardar</button>
@@ -69,9 +71,11 @@
 
     <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" [hidden]="isHidden" ngNativeValidate>
 
-      <label for="content">Respuesta:</label>
-      <br>
-      <textarea name="content" ngModel required cols="80" rows="10"></textarea>
+      <div class="form-group">
+        <label for="content">Respuesta:</label>
+        <br>
+        <textarea class="form-control" name="content" ngModel required cols="80" rows="10"></textarea>
+      </div>
       <div>
         <button type="submit"> Crear respuesta </button>
       </div>

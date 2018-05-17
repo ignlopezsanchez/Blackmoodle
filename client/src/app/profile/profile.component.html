@@ -18,15 +18,36 @@
     <div>
       <ul>
         <h5>Asignaturas:</h5>
-        <li *ngFor="let subject of profile.subjects">
-          <p>{{subject.name}}</p>
-          <p>Carrera: {{subject.degree.name}}</p>
-          <p>Curso: {{subject.course}}</p>
-          <p>Hilos abiertos: {{subject.threads.length}}</p>
-          <a [routerLink]="['/subject', subject._id]">Entrar</a>
+        <div class="accordion" id="accordion">
 
+        <li *ngFor="let subject of profile.subjects; let i = index">
+            <div class="card">
+                <div class="card-header" id="'heading'+ i">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="'#collapse' + i" aria-expanded="true" aria-controls="'collapse' + i">
+                        {{subject.name}}
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="'collapse' + i" class="collapse show" aria-labelledby="heading'+ i" data-parent="#accordion">
+                  <div class="card-body">
+                      <p>Carrera: {{subject.degree.name}}</p>
+                      <p>Curso: {{subject.course}}</p>
+                      <p>Hilos abiertos: {{subject.threads.length}}</p>
+                      <a [routerLink]="['/subject', subject._id]">Entrar</a>        </div>
+                </div>
+              </div>
         </li>
+      </div>
       </ul>
     </div>
   </div>
 </div>
+
+
+
+
+
+    
+    

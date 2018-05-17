@@ -14,3 +14,17 @@
   overflow: scroll;
   height: 400px;
 }
+li{
+  list-style: none;
+}
+*{
+  font-family: 'IBM Plex Serif', serif;
+
+}
+p{
+  font-size: 3vw;
+}
+h4{
+  font-size: 4vw;
+
+}
