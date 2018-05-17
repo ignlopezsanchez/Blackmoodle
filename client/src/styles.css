@@ -3,3 +3,14 @@
   cursor: pointer;
   
 }
+.wrapper {
+  padding-top: 80px;
+}
+.scroll{
+  overflow: scroll;
+  height: 800px;
+}
+.scroll-medium {
+  overflow: scroll;
+  height: 400px;
+}

@@ -1,90 +1,96 @@
 
-<div class="container">
+<div class="container wrapper">
   <div *ngIf="user">
     <h1>{{subject.name}}</h1>
       <div>
           <button (click)="leaveSubject()"> Abandonar asignatura</button>
       </div>
       <br><br>
-    <div>
-      <ul>
-        <h3>PRÓXIMAS FECHAS</h3>
-  
-        <li *ngFor="let deadline of subject.deadlines">
-          <h4>{{deadline.name}}</h4>
-          <p>{{deadline.date | date:"dd/LL/y"}}</p>
-          <div *ngIf="user.isTeacher" >
-          <button (click)="deleteDeadline(deadline._id)">Borrar Deadline</button>
-        </div>
-        </li>
-      </ul>
+    <div class="row">
+      <div class="col-sm-5">
+        <div>
+          <ul>
+            <h3>PRÓXIMAS FECHAS</h3>
       
-      <div *ngIf="user.isTeacher" >
-        <label for="">Nombre:</label>
-        <input type="text" [(ngModel)]="name" name="name">
-        <br><br>
-        <label for="">Fecha:</label>
-        <input id="date" type="date" [(ngModel)]="date" name="date">
-        <button (click)="createDeadline()"> Subir </button>
+            <li *ngFor="let deadline of subject.deadlines">
+              <h4>{{deadline.name}}</h4>
+              <p>{{deadline.date | date:"dd/LL/y"}}</p>
+              <div *ngIf="user.isTeacher" >
+              <button (click)="deleteDeadline(deadline._id)">Borrar Deadline</button>
+            </div>
+            </li>
+          </ul>
+          
+          <div *ngIf="user.isTeacher" >
+            <label for="">Nombre:</label>
+            <input type="text" [(ngModel)]="name" name="name">
+            <br><br>
+            <label for="">Fecha:</label>
+            <input id="date" type="date" [(ngModel)]="date" name="date">
+            <button (click)="createDeadline()"> Subir </button>
+          </div>
+      
+      
+        </div>
+      
+    
+      <div>
+          <ul>
+            <h3>APUNTES</h3>
+      
+            <li *ngFor="let note of subject.notes">
+              <a target="_blank" href="{{note.url}}"><p>{{note.name}}</p></a>
+              <div *ngIf="user.isTeacher || user._id === note._author._id">
+                <button (click)="deleteNote(note._id)">Borrar archivo</button>
+              </div>
+    
+            </li>
+            
+                <input type="text" [(ngModel)]="apuntes.name" name="name"/>
+                <br>
+                <input type="file" [(ngModel)]="fileName" name="file" ng2FileSelect [uploader]="uploader" />
+                <br>
+                <button (click)="uploadNote()"> Subir </button>
+      
+          </ul>
+      
+      
+      
+        </div>
       </div>
   
   
-    </div>
-  
-
-  <div>
+    <div class="col-sm-7">
       <ul>
-        <h3>APUNTES</h3>
-  
-        <li *ngFor="let note of subject.notes">
-          <a target="_blank" href="{{note.url}}"><p>{{note.name}}</p></a>
-          <div *ngIf="user.isTeacher || user._id === note._author._id">
-            <button (click)="deleteNote(note._id)">Borrar archivo</button>
-          </div>
-
-        </li>
-        
-            <input type="text" [(ngModel)]="apuntes.name" name="name"/>
-            <br>
-            <input type="file" [(ngModel)]="fileName" name="file" ng2FileSelect [uploader]="uploader" />
-            <br>
-            <button (click)="uploadNote()"> Subir </button>
+        <h3>FORO</h3>
+        <div class="scroll">
+          <li *ngFor="let thread of subject.threads">
+            <a [routerLink]="['/threads', subject._id, thread._id]"><h4>{{thread.title}}</h4></a>
+            <p>{{thread._author.username}}</p>
+            <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
+    
+          </li>
+    
+          <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
+              <h5>Nuevo hilo</h5>
+              <label for="title">Título:</label>
+              <br>
+              <input name="title" type="text" ngModel>
+              <br><br>
+    
+              <label for="content">Contenido:</label>
+              <br>
+              <textarea name="content" ngModel required cols="80" rows="10"></textarea>
+              <div>
+                <button type="submit"> Crear Hilo </button>
+              </div>
+            </form>
+    
+        </div>
   
       </ul>
-  
-  
-  
     </div>
-
-
-  <div>
-    <ul>
-      <h3>FORO</h3>
-      <li *ngFor="let thread of subject.threads">
-        <a [routerLink]="['/threads', subject._id, thread._id]"><h4>{{thread.title}}</h4></a>
-        <p>{{thread._author.username}}</p>
-        <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
-
-      </li>
-
-      <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
-          <h5>Nuevo hilo</h5>
-          <label for="title">Título:</label>
-          <br>
-          <input name="title" type="text" ngModel>
-          <br><br>
-
-          <label for="content">Contenido:</label>
-          <br>
-          <textarea name="content" ngModel required cols="80" rows="10"></textarea>
-          <div>
-            <button type="submit"> Crear Hilo </button>
-          </div>
-        </form>
-
-
-    </ul>
-  </div>
+    </div>
 
 
   </div>

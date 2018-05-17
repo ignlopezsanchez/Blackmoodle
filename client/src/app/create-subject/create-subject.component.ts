@@ -34,7 +34,10 @@ export class CreateSubjectComponent implements OnInit {
       course:myForm.value.course,
 
     }
-    this.subjectService.createSubject(subject).subscribe()
+    this.subjectService.createSubject(subject).subscribe(() => {
+      alert(`Creada la asignatura ${myForm.value.name} del ${myForm.value.course} curso  del ${myForm.value.degree}`);
+      myForm.resetForm();
+    })
   }
 
   

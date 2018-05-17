@@ -1,11 +1,36 @@
-
-  <a [routerLink]="['/profile']" >Profile </a>
-  <div *ngIf="!service.user">
-  <a [routerLink]="['/login']" >Log In </a>
-  <a [routerLink]="['/signup']" >Sign Up </a>
-  </div>
-  <div *ngIf="service.user">
-    <span  class="fake-link" (click)="service.logout().subscribe()" > Logout </span>
-  </div>
+<nav class="navbar  fixed-top navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   
-  <router-outlet></router-outlet>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/login']">Home
+              <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item active">
+            <a *ngIf="service.user" class="nav-link" [routerLink]="['/profile']" >Profile <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item active">
+            <a *ngIf="!service.user" class="nav-link" [routerLink]="['/login']" >Log In <span class="sr-only"></span></a>
+        
+        </li>
+        <li class="nav-item active">
+            <a *ngIf="!service.user" class="nav-link" [routerLink]="['/signup']" >Sign Up <span class="sr-only"></span></a>
+        
+        </li>
+        
+      </ul>
+    </div>
+    <div class="justify-content-right">
+       
+            <span *ngIf="service.user" class="nav-link fake-link" (click)="service.logout().subscribe()" > Logout </span>
+
+        
+      </div>
+  </nav>
+
+
+      <router-outlet></router-outlet>
+    
