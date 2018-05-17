@@ -41,7 +41,7 @@
 
 
       <li *ngFor="let reply of thread.replies, let i=index">
-        <p>{{reply._author.username}}</p>
+        <p id="back{{i}}">{{reply._author.username}}</p>
 
         <div *ngIf="reply.updated_at === reply.created_at;else otherContent">
           <p>Creado el: {{reply.created_at | date:"dd/LL/y h:mm" }}</p>
@@ -50,7 +50,7 @@
         <ng-template #otherContent>
           <p>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</p>
         </ng-template>
-       <p id="back{{i}}">{{reply.content}}</p>
+       <p>{{reply.content}}</p>
         
         <div *ngIf="user._id === reply._author._id">
           <br>
@@ -67,7 +67,7 @@
     <a scrollTo href="#back{{idForReply}}"><button [hidden]="!isHidden" (click)="editReply()">Guardar</button></a>
 
 
-    <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
+    <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" [hidden]="isHidden" ngNativeValidate>
 
       <label for="content">Respuesta:</label>
       <br>
