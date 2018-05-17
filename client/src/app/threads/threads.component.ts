@@ -19,7 +19,8 @@ export class ThreadsComponent implements OnInit {
   isHidden: boolean = false;
   isThreadHidden: boolean = false;
   idReplay: string = "";
-  formerContent: string = ""
+  formerContent: string = "";
+  idForReply: string = "";
 
   constructor(private threadsService: ThreadService,
               private route: ActivatedRoute,
@@ -74,7 +75,9 @@ export class ThreadsComponent implements OnInit {
       }) 
     })
   }
-  openEditReply(idReplay, content){
+  openEditReply(idReplay, content, id){
+    console.log(typeof id);
+    this.idForReply = id.toString();
     this.formerContent = content;
     this.idReplay = idReplay;
     this.isHidden = !this.isHidden;
@@ -90,6 +93,7 @@ export class ThreadsComponent implements OnInit {
       this.threadsService.getOneThread(this.idSubject, this.idThread).subscribe(thread => {
         this.thread = thread; 
         this.newReply = "";
+        this.idForReply = "";
       }) 
     })
   }

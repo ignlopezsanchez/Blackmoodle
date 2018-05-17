@@ -33,6 +33,25 @@ router.post('/:idSubject/new', [ensureLoggedIn(), isTeacher()], (req, res, next)
 });
 });
 
+//DELETE DEADLINE
+router.delete('/:idSubject/:idDeadline', [ensureLoggedIn(), isTeacher()], (req, res, next) => { 
+  let idSubject = req.params.idSubject;
+  let idDeadline = req.params.idDeadline;
+  Subject.findByIdAndUpdate(idSubject, { $pull: { deadlines:  idDeadline } }).then(subject => {
+    Deadline
+    .findByIdAndUpdate(idDeadline, p, {new: true})
+      .then((deadlines) =>{
+        return res.status(200).json(deadlines);
+      }) 
+
+  })     
+  .catch(err => {
+    if (err)     { return res.status(500).json(err); }
+    // return res.status(404).json(err);
+});
+});
+
+
 //EDIT DEADLINE
 router.put('/:idSubject/:idDeadline', [ensureLoggedIn(), isTeacher()], (req, res, next) => {    
   let idDeadline = req.params.idDeadline;
