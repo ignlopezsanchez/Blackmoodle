@@ -39,7 +39,7 @@ router.delete('/:idSubject/:idDeadline', [ensureLoggedIn(), isTeacher()], (req, 
   let idDeadline = req.params.idDeadline;
   Subject.findByIdAndUpdate(idSubject, { $pull: { deadlines:  idDeadline } }).then(subject => {
     Deadline
-    .findByIdAndUpdate(idDeadline, p, {new: true})
+    .findByIdAndRemove(idDeadline)
       .then((deadlines) =>{
         return res.status(200).json(deadlines);
       }) 

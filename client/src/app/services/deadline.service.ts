@@ -27,5 +27,10 @@ export class DeadlineService {
       .map(res => res.json())
       .catch(this.handleError);
   }
+  deleteDeadline(idSubject, idDeadline) {                                                                    
+    return this.http.delete(`${environment.BASEURL}/api/deadlines/${idSubject}/${idDeadline}`, this.options)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
 
 }

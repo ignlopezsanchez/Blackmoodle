@@ -29,7 +29,7 @@
           <p [hidden]="!isThreadHidden">Nuevo mensaje:</p>
           <textarea name="newPost" id="newPost" cols="60" rows="3" [hidden]="!isThreadHidden" [(ngModel)]="newPost"></textarea>
           <br>
-        <button (click)="openEditThread()">Editar</button>
+        <button [hidden]="isThreadHidden" (click)="openEditThread()">Editar</button>
         <button [hidden]="!isThreadHidden" (click)="editThread(thread._id)">Guardar</button>
       </div>
 
@@ -54,7 +54,7 @@
         
         <div *ngIf="user._id === reply._author._id">
           <br>
-          <a  scrollTo href="#newReply"><button  (click)="openEditReply(reply._id, reply.content, i)">Editar</button></a>
+          <a  scrollTo href="#newReply"><button  (click)="openEditReply(reply._id, reply.content, i)" [hidden]="isHidden">Editar</button></a>
         </div>
       </li>
 

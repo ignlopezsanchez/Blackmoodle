@@ -71,7 +71,7 @@ router.get('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => 
   let idSubject = req.params.idSubject;
   Subject
     .findById(idSubject)
-    .populate('degree teacher deadlines notes')
+    .populate('degree teacher deadlines')
     .populate({
       path: 'threads',
       model: 'Thread', 
@@ -84,7 +84,16 @@ router.get('/:idSubject', [ensureLoggedIn(), hasSubject()], (req, res, next) => 
           model:'Reply'
         }],
 
-    }) 
+    })
+    .populate({
+      path: 'notes',
+      model: 'Note', 
+        populate:[{
+          path: '_author', 
+          model:'User'
+        }],
+
+    })
     .then(subject => {
       subject.threads.sort((a, b) => {
         return b.updated_at - a.updated_at

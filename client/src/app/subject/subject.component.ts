@@ -8,6 +8,7 @@ import { SubjectService } from '../services/subject.service';
 import { SessionService } from '../services/session.service';
 import { DeadlineService } from '../services/deadline.service';
 import { ThreadService } from '../services/thread.service';
+import { NoteService } from '../services/note.service';
 
 @Component({
   selector: 'app-subject',
@@ -23,13 +24,15 @@ export class SubjectComponent implements OnInit {
   
   user: any;
   name: string = "";
-  date: Date;
+  date: string;
 
   apuntes: any = {
     name: ""
   };
+  fileName: string = "";
   constructor(private subjectService: SubjectService,
               private deadlineService: DeadlineService,
+              private noteService: NoteService,
               private route: ActivatedRoute,
               public router: Router,
               private threadsService: ThreadService,
@@ -57,6 +60,16 @@ export class SubjectComponent implements OnInit {
       date: this.date
     }
     this.deadlineService.createDeadline(this.idSubject, deadline).subscribe(() =>{
+      this.name = "";
+      this.date = "";
+      this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
+      this.subject = subject;
+    })
+    })
+  }
+
+  deleteDeadline(idDeadline){    
+    this.deadlineService.deleteDeadline(this.idSubject, idDeadline).subscribe(() =>{
       this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
       this.subject = subject;
     })
@@ -76,10 +89,22 @@ export class SubjectComponent implements OnInit {
       this.uploader.onCompleteItem = () => {
         this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
           this.subject = subject;
+          this.apuntes.name = "";
+          this.fileName = "";
         })
 
       }                                                
   }
+
+  deleteNote(idNote){    
+    this.noteService.deleteNote(this.idSubject, idNote).subscribe(() =>{
+      this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
+      this.subject = subject;
+    })
+    })
+  }
+
+
 
   leaveSubject(){
     this.subjectService.leaveSubject(this.idSubject).subscribe(() => {

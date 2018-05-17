@@ -1,6 +1,7 @@
 
 <div class="container">
   <div *ngIf="user">
+    <h1>{{subject.name}}</h1>
       <div>
           <button (click)="leaveSubject()"> Abandonar asignatura</button>
       </div>
@@ -12,7 +13,9 @@
         <li *ngFor="let deadline of subject.deadlines">
           <h4>{{deadline.name}}</h4>
           <p>{{deadline.date | date:"dd/LL/y"}}</p>
-  
+          <div *ngIf="user.isTeacher" >
+          <button (click)="deleteDeadline(deadline._id)">Borrar Deadline</button>
+        </div>
         </li>
       </ul>
       
@@ -21,7 +24,7 @@
         <input type="text" [(ngModel)]="name" name="name">
         <br><br>
         <label for="">Fecha:</label>
-        <input type="date" [(ngModel)]="date" name="date">
+        <input id="date" type="date" [(ngModel)]="date" name="date">
         <button (click)="createDeadline()"> Subir </button>
       </div>
   
@@ -35,12 +38,15 @@
   
         <li *ngFor="let note of subject.notes">
           <a target="_blank" href="{{note.url}}"><p>{{note.name}}</p></a>
-        
+          <div *ngIf="user.isTeacher || user._id === note._author._id">
+            <button (click)="deleteNote(note._id)">Borrar archivo</button>
+          </div>
+
         </li>
         
             <input type="text" [(ngModel)]="apuntes.name" name="name"/>
             <br>
-            <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+            <input type="file" [(ngModel)]="fileName" name="file" ng2FileSelect [uploader]="uploader" />
             <br>
             <button (click)="uploadNote()"> Subir </button>
   

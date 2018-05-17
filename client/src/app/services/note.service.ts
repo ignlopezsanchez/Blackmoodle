@@ -28,4 +28,11 @@ export class NoteService {
       .map(res => res.json())
       .catch(this.handleError);
   }
+
+  deleteNote(idSubject, idNote) {                                                                    
+    return this.http.delete(`${environment.BASEURL}/api/notes/${idSubject}/${idNote}`, this.options)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
 }

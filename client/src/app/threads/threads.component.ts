@@ -71,7 +71,9 @@ export class ThreadsComponent implements OnInit {
     console.log(update)
     this.threadsService.editeThread(idThread, update).subscribe(() => {
       this.threadsService.getOneThread(this.idSubject, this.idThread).subscribe(thread => {
-        this.thread = thread;       
+        this.thread = thread;  
+        this.newTitle = "";
+        this.newPost = "";     
       }) 
     })
   }
