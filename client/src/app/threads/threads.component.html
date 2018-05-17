@@ -7,7 +7,7 @@
 
     <br>
     <br>
-    <div *ngIf="thread._author">
+    <div *ngIf="thread._author" id="back">
       <h4>{{thread.title}}</h4>
       <p>{{thread._author.username}}</p>
 
@@ -48,19 +48,19 @@
         <ng-template #otherContent>
           <p>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</p>
         </ng-template>
-        <p [hidden]="!isHidden">Mensaje original:</p>
-        <p >{{reply.content}}</p>
+       <p>{{reply.content}}</p>
         
         <div *ngIf="user._id === reply._author._id">
-            <p [hidden]="!isHidden">Nuevo mensaje:</p>
-            <textarea name="newReply" id="newReply" cols="60" rows="3" [hidden]="!isHidden" [(ngModel)]="newReply"></textarea>
-            <br>
-          <button (click)="openEditReply()">Editar</button>
-          <button [hidden]="!isHidden" (click)="editReply(reply._id)">Guardar</button>
+          <br>
+          <a  scrollTo href="#newReply"><button  (click)="openEditReply(reply._id, reply.content)">Editar</button></a>
         </div>
       </li>
     </ul>
-
+    <p [hidden]="!isHidden">Mensaje original:</p>
+    <p [hidden]="!isHidden">{{formerContent}}</p>
+    <p [hidden]="!isHidden">Nuevo mensaje:</p>
+    <textarea name="newReply" id="newReply" cols="60" rows="3" [hidden]="!isHidden" [(ngModel)]="newReply">{{formerContent}}</textarea>
+    <a scrollTo href="#back"><button [hidden]="!isHidden" (click)="editReply()">Guardar</button></a>
 
 
     <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>

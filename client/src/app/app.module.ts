@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {routes} from './routes';
 import { FileSelectDirective } from "ng2-file-upload";
-
+import {ScrollToModule} from 'ng2-scroll-to';
 
 
 import { AppComponent } from './app.component';
@@ -40,6 +40,7 @@ import { FilterSignupPipe } from './pipes/filterSignup.pipe';
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpModule,
+    ScrollToModule.forRoot(),
     FormsModule
   ],
   providers: [SessionService, ThreadService, DeadlineService, NoteService, SubjectService],
