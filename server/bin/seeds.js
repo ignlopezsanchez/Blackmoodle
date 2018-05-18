@@ -189,25 +189,25 @@ User.create(users, (err, usersDocs) => {
       const threads = [
         {
           _author: userJuan._id,
-          title: 'First Thread',
+          title: 'Duda con el ejercicio 3 del tema 4',
           content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           date: new Date,
         },
         {
           _author: userBea._id,
-          title: 'Second Thread',
+          title: 'Jaimito me ha robado el estuche',
           content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           date: new Date,
         },
         {
           _author: userBea._id,
-          title: 'Third Thread',
+          title: '¿Alguien sabe hacer un bucle for?',
           content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           date: new Date,
         },
         {
           _author: userNacho._id,
-          title: 'Fourth Thread',
+          title: 'Mañana Ironbeers',
           content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           date: new Date,
         },
@@ -226,22 +226,22 @@ User.create(users, (err, usersDocs) => {
         const deadlines = [
           {
             _author: userJuan._id,
-            name: 'First Deadline',
+            name: 'Examen del tema 4',
             date: new Date,
           },
           {
             _author: userBea._id,
-            name: 'Second Deadline',
+            name: 'Visita a Ironhack',
             date: new Date,
           },
           {
             _author: userBea._id,
-            name: 'Third Deadline',
+            name: 'Charla de Big Data',
             date: new Date,
           },
           {
             _author: userNacho._id,
-            name: 'Fourth Deadline',
+            name: 'Hackshow',
             date: new Date,
           },
         ];
@@ -263,17 +263,17 @@ User.create(users, (err, usersDocs) => {
             },
             {
               _author: userBea._id,
-              name: 'Dynamic views',
+              name: 'Angular 5',
               url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf",
             },
             {
               _author: userBea._id,
-              name: 'Dynamic views',
+              name: 'Uso de cloudinary',
               url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf",
             },
             {
               _author: userNacho._id,
-              name: 'Dynamic views',
+              name: 'Route guards',
               url: "http://res.cloudinary.com/ignlopezsanchez/image/upload/v1525955491/hbs1.pdf",
             },
           ];
@@ -289,7 +289,7 @@ User.create(users, (err, usersDocs) => {
           .then(()=>{
             const subjects = [
               {
-                name: "Programacion I",
+                name: "Programación I",
                 degree: degreeOne._id,
                 course: 1,
                 teacher: [userJuan._id, userBea._id],
