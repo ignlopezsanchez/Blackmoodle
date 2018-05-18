@@ -22,9 +22,9 @@
 
         <li *ngFor="let subject of profile.subjects; let i = index">
             <div class="card">
-                <div class="card-header" id="'heading'+ i">
+                <div class="card-header to-card" id="'heading'+ i">
                   <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="'#collapse' + i" aria-expanded="true" aria-controls="'collapse' + i">
+                    <button class="btn btn-link boton" type="button" data-toggle="collapse" data-target="'#collapse' + i" aria-expanded="true" aria-controls="'collapse' + i">
                         {{subject.name}}
                     </button>
                   </h5>
@@ -35,7 +35,7 @@
                       <p>Carrera: {{subject.degree.name}}</p>
                       <p>Curso: {{subject.course}}</p>
                       <p>Hilos abiertos: {{subject.threads.length}}</p>
-                      <a [routerLink]="['/subject', subject._id]">Entrar</a>        </div>
+                      <a class="ahi" [routerLink]="['/subject', subject._id]">Entrar</a>        </div>
                 </div>
               </div>
         </li>

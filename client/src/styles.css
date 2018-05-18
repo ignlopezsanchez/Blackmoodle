@@ -19,12 +19,32 @@ li{
 }
 *{
   font-family: 'IBM Plex Serif', serif;
+  background-color: rgb(200,200,200);
 
 }
 p{
   font-size: 3vw;
 }
-h4{
+h4, h5{
   font-size: 4vw;
 
+}
+h3{
+  font-size: 5vw;
+
+}
+.to-card{
+  background-color: rgb(200,200,200);
+}
+
+.boton{
+  color: black;
+}
+.ahi{
+  color: black;
+  background-color: grey;
+  padding: 10px;
+}
+.title:hover { 
+  background-color: yellow;
 }

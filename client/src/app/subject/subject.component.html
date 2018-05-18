@@ -1,154 +1,171 @@
 <div class="container wrapper">
   <div *ngIf="user">
+      <a class="ahi"[routerLink]="['/profile']">
+        VOLVER
+      </a>
+      <br><br>
     <h1>{{subject.name}}</h1>
     <div>
-      <button class="btn btn-primary" (click)="leaveSubject()"> Abandonar asignatura</button>
+      <button class="btn btn-danger" (click)="leaveSubject()"> Abandonar asignatura</button>
     </div>
     <br>
     <br>
 
-<div class="accordion" id="accordion">
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h5 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            DEADLINES
-          </button>
-        </h5>
-      </div>
-  
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
+    <div class="accordion" id="accordion">
+      <div class="card">
+        <div class="card-header to-card" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link boton" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              DEADLINES
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
             <div>
-                <ul>
+              <ul>
 
-                  <li *ngFor="let deadline of subject.deadlines">
-                    <h5>{{deadline.name}}</h5>
-                    <h5>{{deadline.date | date:"dd/LL/y"}}</h5>
-                    <div *ngIf="user.isTeacher">
-                      <button class="btn btn-primary" (click)="deleteDeadline(deadline._id)">Borrar Deadline</button>
-                    </div>
-                  </li>
-                </ul>
-
-                <div *ngIf="user.isTeacher">
-                  <div class="form-group">
-                    <label for="">Nombre:</label>
-                    <input class="form-control" type="text" [(ngModel)]="name" name="name">
-                  </div>
-                
-                  
-                  <div class="form-group">
-                    <label for="">Fecha:</label>
-                    <input class="form-control" id="date" type="date" [(ngModel)]="date" name="date">
-                  </div>
-                  <button class="btn btn-primary" (click)="createDeadline()"> Subir </button>
-                </div>
-
-
-              </div>        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header" id="headingTwo">
-        <h5 class="mb-0">
-          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            APUNTES
-          </button>
-        </h5>
-      </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-        <div class="card-body">
-            <div>
-                <ul>
-
-                  <li *ngFor="let note of subject.notes">
-                    <a target="_blank" href="{{note.url}}">
-                      <h5>{{note.name}}</h5>
-                    </a>
-                    <div *ngIf="user.isTeacher || user._id === note._author._id">
-                      <button class="btn btn-primary" (click)="deleteNote(note._id)">Borrar archivo</button>
-                    </div>
-                    <br>
-                  </li>
-                    <br>
-                    <h4>SUBIR APUNTES</h4>
-                  <div class="form-group">
-                    <input class="form-control" type="text" [(ngModel)]="apuntes.name" name="name" />
-                  </div>
-                  
-                  <div class="form-group">
-                    <input class="form-control-file" type="file" [(ngModel)]="fileName" name="file" ng2FileSelect [uploader]="uploader" />
-                  </div>
-                  
-                  <button class="btn btn-primary" (click)="uploadNote()"> Subir </button>
-
-                </ul>
-
-
-
-              </div>        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header" id="headingThree">
-        <h5 class="mb-0">
-          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            FORO
-          </button>
-        </h5>
-      </div>
-      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-        <div class="card-body">
-            <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
-                <h5>Nuevo hilo</h5>
-                <div class="form-group">
-                  <label for="title">Título:</label>
+                <li *ngFor="let deadline of subject.deadlines">
                   <br>
-                  <input class="form-control" name="title" type="text" ngModel>
+                  <h3>{{deadline.name}}</h3>
+                  <h4>{{deadline.date | date:"dd/LL/y"}}</h4>
+                  <div *ngIf="user.isTeacher">
+                    <button class="btn btn-danger" (click)="deleteDeadline(deadline._id)">✖</button>
+                    <br>
+                    <br>
+                  </div>
+                </li>
+              </ul>
+
+              <div *ngIf="user.isTeacher">
+                <div class="form-group">
+                  <label for="">Nombre:</label>
+                  <input class="form-control" type="text" [(ngModel)]="name" name="name">
                 </div>
-                <br>
-                <br>
+
 
                 <div class="form-group">
-                  <label for="content">Contenido:</label>
-                  <br>
-                  <textarea class="form-control" name="content" ngModel required cols="80" rows="10"></textarea>
+                  <label for="">Fecha:</label>
+                  <input class="form-control" id="date" type="date" [(ngModel)]="date" name="date">
                 </div>
-                <div>
-                  <button class="btn btn-primary" type="submit"> Crear Hilo </button>
-                </div>
-              </form>
-              <br><br>
-              <h3>HILOS ACTUALES</h3>
-              <br>
-          <ul>
-            <div class="scroll">
-              <li *ngFor="let thread of subject.threads">
-                <div class="threads justify-content-center">
-                  <a [routerLink]="['/threads', subject._id, thread._id]">
-                    <h4>{{thread.title}}</h4>
-                  </a>
-                  <p>{{thread._author.username}}</p>
-                  <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
-                </div>
+                <button class="btn btn-primary" (click)="createDeadline()"> Subir </button>
+                <br>
+              </div>
 
-              </li>
-
-              
 
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header to-card" id="headingTwo">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed boton" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+              aria-controls="collapseTwo">
+              APUNTES
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <div>
+              <ul>
 
-          </ul>        </div>
+                <li *ngFor="let note of subject.notes">
+                  <a target="_blank" href="{{note.url}}">
+                    <h3
+                    >{{note.name}}</h3>
+                  </a>
+                  <p><i>{{note._author.username}}</i></p>
+                  <div *ngIf="user.isTeacher || user._id === note._author._id">
+                    <button class="btn btn-danger" (click)="deleteNote(note._id)">✖</button>
+                  </div>
+                  <br>
+                </li>
+                <br>
+                <h4>SUBIR APUNTES</h4>
+                <div class="form-group">
+                  <input class="form-control" type="text" [(ngModel)]="apuntes.name" name="name" />
+                </div>
+
+                <div class="form-group">
+                  <input class="form-control-file" type="file" [(ngModel)]="fileName" name="file" ng2FileSelect [uploader]="uploader" />
+                </div>
+
+                <button class="btn btn-primary" (click)="uploadNote()"> Subir </button>
+
+              </ul>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header to-card" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed boton" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+              aria-controls="collapseThree">
+              FORO
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            <button [hidden]="!isHidden" class="btn btn-primary" (click)="showForm()">Nuevo hilo</button>
+            <form [hidden]="isHidden" (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
+              <h5>Nuevo hilo </h5>
+              <div class="form-group">
+                <label for="title">Título:</label>
+                <br>
+                <input class="form-control" name="title" type="text" ngModel required>
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="content">Contenido:</label>
+                <br>
+                <textarea class="form-control" name="content" ngModel required cols="80" rows="10"></textarea>
+              </div>
+              <div>
+                <button class="btn btn-primary" type="submit"> Crear Hilo </button>
+              </div>
+            </form>
+            <button [hidden]="isHidden" class="btn btn-primary" (click)="showForm()" type="submit"> Cancelar </button>
+            <br>
+            <br>
+            <h3>HILOS ACTUALES</h3>
+            <br>
+            <ul>
+              <div class="scroll">
+                <li *ngFor="let thread of subject.threads">
+                  <div class="threads justify-content-center">
+                    <a class="title" [routerLink]="['/threads', subject._id, thread._id]">
+                      <h4>{{thread.title}}</h4>
+                    </a>
+                    <p>{{thread._author.username}}</p>
+                    <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
+                  </div>
+
+                </li>
+
+
+
+              </div>
+
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
+
+
+
+
+
   </div>
 
-
-
-
-
 </div>
-
-</div>
-

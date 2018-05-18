@@ -2,27 +2,33 @@
     <h1>ADMIN AREA</h1>
   <div *ngIf="user.isAdmin">
     <h3>CREAR ASIGNATURA</h3>
+    <br>
     <form (ngSubmit)="submitForm(myForm)" #myForm="ngForm" ngNativeValidate>
   
-    <label for="name">Nombre de la nueva asignatura:</label>
-    <input type="text" name="name" ngModel required>
-    <br><br>
-    <label for="course">Curso:</label>
-    <select name="course" ngModel required>
-      <option >1</option>
-      <option >2</option>
-      <option >3</option>
-      <option >4</option>
-    </select>
-    <br><br>
+    <div class="form-group">
+      <label for="name">Nombre de la nueva asignatura:</label>
+      <input class="form-control" type="text" name="name" ngModel required>
+    </div>
+   
+    <div class="form-group">
+      <label for="course">Curso:</label>
+      <select class="form-control" name="course" ngModel required>
+        <option >1</option>
+        <option >2</option>
+        <option >3</option>
+        <option >4</option>
+      </select>
+    </div>
   
-    <label for="degree">Carrera a la que pertenece:</label>
-    <select name="degree" ngModel required >
-      <option *ngFor="let degree of degrees; let i=index" [value]="degree.name">{{degree.name}}</option>
-    </select>
+    <div class="form-group">
+      <label for="degree">Carrera a la que pertenece:</label>
+      <select class="form-control" name="degree" ngModel required >
+        <option *ngFor="let degree of degrees; let i=index" [value]="degree.name">{{degree.name}}</option>
+      </select>
+    </div>
     
     <div>
-      <button type="submit"> Crear asignatura </button>
+      <button class="btn btn-danger" type="submit"> Crear asignatura </button>
     </div>
   </form>
   </div>

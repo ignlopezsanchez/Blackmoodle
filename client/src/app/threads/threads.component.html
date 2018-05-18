@@ -1,25 +1,26 @@
 <div *ngIf="user">
   <div class="container wrapper">
 
-    <a [routerLink]="['/subject', idSubject]">
-      <h4>Volver</h4>
+    <a class="ahi"[routerLink]="['/subject', idSubject]">
+      VOLVER
     </a>
 
     <br>
     <br>
     <div *ngIf="thread._author">
-      <h4>{{thread.title}}</h4>
+      <h4><strong>{{thread.title}}</strong></h4>
+      <img src="{{thread._author.photo}}" alt="Creador">
       <p>{{thread._author.username}}</p>
 
       <div *ngIf="thread.updated_at === thread.created_at;else othersContent">
-        <p>Creado el: {{thread.created_at | date:"dd/LL/y h:mm" }}</p>
+        <p><i>Creado el: {{thread.created_at | date:"dd/LL/y h:mm" }}</i></p>
       </div>
 
       <ng-template #othersContent>
-        <p>Editado el: {{thread.updated_at | date:"dd/LL/y h:mm" }}</p>
+        <p><i>Editado el: {{thread.updated_at | date:"dd/LL/y h:mm" }}</i></p>
       </ng-template>
 
-      <p>{{thread.content}}</p>
+      <h4>{{thread.content}}</h4>
 
       <div *ngIf="user._id === thread._author._id">
 
@@ -31,8 +32,8 @@
             <textarea class="form-control" name="newPost" id="newPost" cols="60" rows="3" [hidden]="!isThreadHidden" [(ngModel)]="newPost"></textarea>
           </div>
           <br>
-        <button [hidden]="isThreadHidden" (click)="openEditThread()">Editar</button>
-        <button [hidden]="!isThreadHidden" (click)="editThread(thread._id)">Guardar</button>
+        <button  [hidden]="isThreadHidden" (click)="openEditThread()">Editar</button>
+        <button  [hidden]="!isThreadHidden" (click)="editThread(thread._id)">Guardar</button>
       </div>
 
 
@@ -43,16 +44,18 @@
 
 
       <li *ngFor="let reply of thread.replies, let i=index">
+        <br><hr>
+        <img src="{{reply._author.photo}}" alt="Creador">
         <p id="back{{i}}">{{reply._author.username}}</p>
 
         <div *ngIf="reply.updated_at === reply.created_at;else otherContent">
-          <p>Creado el: {{reply.created_at | date:"dd/LL/y h:mm" }}</p>
+          <p><i>Creado el: {{reply.created_at | date:"dd/LL/y h:mm" }}</i></p>
         </div>
 
         <ng-template #otherContent>
-          <p>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</p>
+          <p><i>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</i></p>
         </ng-template>
-       <p>{{reply.content}}</p>
+       <h4>{{reply.content}}</h4>
         
         <div *ngIf="user._id === reply._author._id">
           <br>
@@ -62,10 +65,10 @@
 
 
     </ul>
-    <p [hidden]="!isHidden">Mensaje original:</p>
+    <p [hidden]="!isHidden"><strong>Mensaje original:</strong></p>
     <p [hidden]="!isHidden">{{formerContent}}</p>
-    <p [hidden]="!isHidden">Nuevo mensaje:</p>
-    <textarea name="newReply" id="newReply" cols="60" rows="3" [hidden]="!isHidden" [(ngModel)]="newReply">{{formerContent}}</textarea>
+    <p  [hidden]="!isHidden"><strong>Nuevo mensaje:</strong></p>
+    <textarea name="newReply"  cols="60" rows="3" [hidden]="!isHidden" [(ngModel)]="newReply">{{formerContent}}</textarea>
     <a scrollTo href="#back{{idForReply}}"><button [hidden]="!isHidden" (click)="editReply()">Guardar</button></a>
 
 
@@ -74,13 +77,14 @@
       <div class="form-group">
         <label for="content">Respuesta:</label>
         <br>
-        <textarea class="form-control" name="content" ngModel required cols="80" rows="10"></textarea>
+        <textarea class="form-control" name="content" ngModel required cols="10" rows="10"></textarea>
       </div>
       <div>
-        <button type="submit"> Crear respuesta </button>
+        <button  type="submit"> Crear respuesta </button>
       </div>
     </form>
 
 
   </div>
 </div>
+<a id="newReply"></a>

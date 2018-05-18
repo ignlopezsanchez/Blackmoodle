@@ -30,6 +30,7 @@ export class SubjectComponent implements OnInit {
     name: ""
   };
   fileName: string = "";
+  isHidden: boolean = true;
   constructor(private subjectService: SubjectService,
               private deadlineService: DeadlineService,
               private noteService: NoteService,
@@ -53,7 +54,9 @@ export class SubjectComponent implements OnInit {
     this.subject = subject;
   })   
   }
-
+  showForm(){
+    this.isHidden = !this.isHidden;
+  }
   createDeadline(){    
     const deadline = {
       name: this.name,
@@ -121,6 +124,7 @@ export class SubjectComponent implements OnInit {
       this.subjectService.getOneSubject(this.idSubject).subscribe(subject => {
         this.subject = subject;
         myForm.resetForm();
+        this.isHidden = !this.isHidden;
       }) 
       
 
