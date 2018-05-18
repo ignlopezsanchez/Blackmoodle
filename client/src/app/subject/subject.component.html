@@ -16,7 +16,9 @@
         <div class="card-header to-card" id="headingOne">
           <h5 class="mb-0">
             <button class="btn btn-link boton" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              DEADLINES
+              <h3 class="content">
+                DEADLINES
+              </h3>
             </button>
           </h5>
         </div>
@@ -28,8 +30,8 @@
 
                 <li *ngFor="let deadline of subject.deadlines">
                   <br>
-                  <h3>{{deadline.name}}</h3>
-                  <h4>{{deadline.date | date:"dd/LL/y"}}</h4>
+                  <h3 class="content">{{deadline.name}}</h3>
+                  <h4 class="little">{{deadline.date | date:"dd/LL/y"}}</h4>
                   <div *ngIf="user.isTeacher">
                     <button class="btn btn-danger" (click)="deleteDeadline(deadline._id)">✖</button>
                     <br>
@@ -63,7 +65,9 @@
           <h5 class="mb-0">
             <button class="btn btn-link collapsed boton" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
               aria-controls="collapseTwo">
-              APUNTES
+              <h3 class="content">
+                APUNTES
+              </h3>
             </button>
           </h5>
         </div>
@@ -74,10 +78,10 @@
 
                 <li *ngFor="let note of subject.notes">
                   <a target="_blank" href="{{note.url}}">
-                    <h3
+                    <h3 class="content"
                     >{{note.name}}</h3>
                   </a>
-                  <p><i>{{note._author.username}}</i></p>
+                  <p class="little"><i>{{note._author.username}}</i></p>
                   <div *ngIf="user.isTeacher || user._id === note._author._id">
                     <button class="btn btn-danger" (click)="deleteNote(note._id)">✖</button>
                   </div>
@@ -108,7 +112,9 @@
           <h5 class="mb-0">
             <button class="btn btn-link collapsed boton" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
               aria-controls="collapseThree">
-              FORO
+              <h3 class="content">
+                FORO
+              </h3>
             </button>
           </h5>
         </div>
@@ -137,17 +143,17 @@
             <button [hidden]="isHidden" class="btn btn-primary" (click)="showForm()" type="submit"> Cancelar </button>
             <br>
             <br>
-            <h3>HILOS ACTUALES</h3>
+            <h3 class="content">HILOS ACTUALES</h3>
             <br>
             <ul>
               <div class="scroll">
                 <li *ngFor="let thread of subject.threads">
                   <div class="threads justify-content-center">
                     <a class="title" [routerLink]="['/threads', subject._id, thread._id]">
-                      <h4>{{thread.title}}</h4>
+                      <h4 class="content">{{thread.title}}</h4>
                     </a>
-                    <p>{{thread._author.username}}</p>
-                    <p>Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
+                    <p class="little-two">{{thread._author.username}}</p>
+                    <p class="little-two">Último mensaje el: {{thread.updated_at | date:"dd/LL/y h:mm"}}</p>
                   </div>
 
                 </li>

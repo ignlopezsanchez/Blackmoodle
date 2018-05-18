@@ -23,14 +23,14 @@ li{
 
 }
 p{
-  font-size: 3vw;
+  font-size: 3vh;
 }
 h4, h5{
-  font-size: 4vw;
+  font-size: 4vh;
 
 }
 h3{
-  font-size: 5vw;
+  font-size: 5vh;
 
 }
 .to-card{
@@ -47,4 +47,18 @@ h3{
 }
 .title:hover { 
   background-color: yellow;
+}
+.content{
+  font-size: 2.5vh;
+}
+.little{
+  font-size: 2vh;
+
+}
+.little-two{
+  font-size: 1.5vh;
+
+}
+.content-three{
+  font-size: 2.3vh;
 }

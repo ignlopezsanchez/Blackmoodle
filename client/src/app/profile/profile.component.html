@@ -25,16 +25,18 @@
                 <div class="card-header to-card" id="'heading'+ i">
                   <h5 class="mb-0">
                     <button class="btn btn-link boton" type="button" data-toggle="collapse" data-target="'#collapse' + i" aria-expanded="true" aria-controls="'collapse' + i">
-                        {{subject.name}}
+                        <h4 class="content-three">
+                          <strong>{{subject.name}}</strong>
+                        </h4>
                     </button>
                   </h5>
                 </div>
             
                 <div id="'collapse' + i" class="collapse show" aria-labelledby="heading'+ i" data-parent="#accordion">
                   <div class="card-body">
-                      <p>Carrera: {{subject.degree.name}}</p>
-                      <p>Curso: {{subject.course}}</p>
-                      <p>Hilos abiertos: {{subject.threads.length}}</p>
+                      <p class="content">Carrera: {{subject.degree.name}}</p>
+                      <p class="content">Curso: {{subject.course}}</p>
+                      <p class="content">Hilos abiertos: {{subject.threads.length}}</p>
                       <a class="ahi" [routerLink]="['/subject', subject._id]">Entrar</a>        </div>
                 </div>
               </div>

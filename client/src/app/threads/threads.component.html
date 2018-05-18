@@ -10,17 +10,17 @@
     <div *ngIf="thread._author">
       <h4><strong>{{thread.title}}</strong></h4>
       <img src="{{thread._author.photo}}" alt="Creador">
-      <p>{{thread._author.username}}</p>
+      <p class="little">{{thread._author.username}}</p>
 
       <div *ngIf="thread.updated_at === thread.created_at;else othersContent">
-        <p><i>Creado el: {{thread.created_at | date:"dd/LL/y h:mm" }}</i></p>
+        <p class="little"><i>Creado el: {{thread.created_at | date:"dd/LL/y h:mm" }}</i></p>
       </div>
 
       <ng-template #othersContent>
-        <p><i>Editado el: {{thread.updated_at | date:"dd/LL/y h:mm" }}</i></p>
+        <p class="little"><i>Editado el: {{thread.updated_at | date:"dd/LL/y h:mm" }}</i></p>
       </ng-template>
 
-      <h4>{{thread.content}}</h4>
+      <p class="content">{{thread.content}}</p>
 
       <div *ngIf="user._id === thread._author._id">
 
@@ -46,16 +46,16 @@
       <li *ngFor="let reply of thread.replies, let i=index">
         <br><hr>
         <img src="{{reply._author.photo}}" alt="Creador">
-        <p id="back{{i}}">{{reply._author.username}}</p>
+        <p class="little" id="back{{i}}">{{reply._author.username}}</p>
 
         <div *ngIf="reply.updated_at === reply.created_at;else otherContent">
-          <p><i>Creado el: {{reply.created_at | date:"dd/LL/y h:mm" }}</i></p>
+          <p class="little"><i>Creado el: {{reply.created_at | date:"dd/LL/y h:mm" }}</i></p>
         </div>
 
         <ng-template #otherContent>
-          <p><i>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</i></p>
+          <p class="little"><i>Editado el: {{reply.updated_at | date:"dd/LL/y h:mm" }}</i></p>
         </ng-template>
-       <h4>{{reply.content}}</h4>
+       <p class="content">{{reply.content}}</p>
         
         <div *ngIf="user._id === reply._author._id">
           <br>
@@ -68,7 +68,7 @@
     <p [hidden]="!isHidden"><strong>Mensaje original:</strong></p>
     <p [hidden]="!isHidden">{{formerContent}}</p>
     <p  [hidden]="!isHidden"><strong>Nuevo mensaje:</strong></p>
-    <textarea name="newReply"  cols="60" rows="3" [hidden]="!isHidden" [(ngModel)]="newReply">{{formerContent}}</textarea>
+    <textarea class="content" name="newReply"  cols="60" rows="3" [hidden]="!isHidden" [(ngModel)]="newReply">{{formerContent}}</textarea>
     <a scrollTo href="#back{{idForReply}}"><button [hidden]="!isHidden" (click)="editReply()">Guardar</button></a>
 
 
@@ -77,7 +77,7 @@
       <div class="form-group">
         <label for="content">Respuesta:</label>
         <br>
-        <textarea class="form-control" name="content" ngModel required cols="10" rows="10"></textarea>
+        <textarea class="form-control content" name="content" ngModel required cols="10" rows="10"></textarea>
       </div>
       <div>
         <button  type="submit"> Crear respuesta </button>
